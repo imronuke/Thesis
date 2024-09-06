@@ -33,14 +33,16 @@
 \renewcommand\cftsecafterpnum{\vskip15pt}
 \renewcommand\cftsubsecafterpnum{\vskip15pt}
 \renewcommand\cftfigafterpnum{\vskip15pt}
-\renewcommand{\thesection}{\Roman{section}}
-\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+\renewcommand{\thesection}{\Roman{section}.}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}.}
 \renewcommand{\contentsname}{\hfill\bfseries\Large Contents\hfill}   
 \renewcommand{\listfigurename}{\hfill\bfseries\Large List of Figures\hfill}
 \renewcommand{\thefigure}{\arabic{figure}}
 \newcommand{\qed}{\hfill\blacksquare}
 \renewcommand{\bibname}{\hfill\bfseries\Large References \hfill\hfill}
 \renewcommand{\abstractname}{\bfseries\Large Abstract \hfill\hfill}
+
+\captionsetup{figurename=Figure,labelsep=period}
 
 \newcounter{lemma}
 \newcounter{proposition}
@@ -172,7 +174,11 @@ Your abstract should be here. \vfill
 \clearpage
 
 %%% List of Figures
-\listoffigures{}
+{%
+\let\oldnumberline\numberline%
+\renewcommand{\numberline}{\figurename~\oldnumberline}%
+\listoffigures%
+}
 \thispagestyle{empty}
 \clearpage
 
