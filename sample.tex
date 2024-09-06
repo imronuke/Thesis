@@ -30,6 +30,18 @@
 \usepackage{tocloft}
 \usepackage{pdfpages}
 \usepackage{adjustbox}
+\usepackage{tocloft}
+
+\newlength{\mylen}
+
+\renewcommand{\cftfigpresnum}{\figurename\enspace}
+\renewcommand{\cfttabpresnum}{\tablename\enspace}
+\renewcommand{\cftfigaftersnum}{:}
+\renewcommand{\cfttabaftersnum}{:}
+\settowidth{\mylen}{\cftfigpresnum\cftfigaftersnum}
+\settowidth{\mylen}{\cfttabpresnum\cfttabaftersnum}
+\addtolength{\cftfignumwidth}{\mylen}
+\addtolength{\cfttabnumwidth}{\mylen}
 
 \renewcommand\cftsecafterpnum{\vskip15pt}
 \renewcommand\cftsubsecafterpnum{\vskip15pt}
@@ -177,20 +189,12 @@ Your abstract should be here. \vfill
 \clearpage
 
 %%% List of Figures
-{%
-\let\oldnumberline\numberline%
-\renewcommand{\numberline}{\figurename~\oldnumberline}%
-\listoffigures%
-}
+\listoffigures
 \thispagestyle{empty}
 \clearpage
 
 %%% List of Tables
-{%
-\let\oldnumberline\numberline%
-\renewcommand{\numberline}{\tablename~\oldnumberline}%
-\listoftables%
-}
+\listoftables
 \thispagestyle{empty}
 \clearpage
 
@@ -273,7 +277,7 @@ Algorithm~\ref{algo:myalgo} is our proposed algorithm.
   \centering
   \caption{Solutions for the criticality calculations}
   \label{tab1} 
-\begin{adjustbox}{width=0.8\textwidth} % Adjust your table to the text width
+\begin{adjustbox}{width=1.0\textwidth} % Adjust your table to the text width
   \begin{tabular}{| p{0.05\linewidth} | p{0.1\linewidth} | p{0.1\linewidth} | p{0.1\linewidth} | c | c | p{0.1\linewidth} |}
   \hline 
          &             &                 &                     & \multicolumn{2}{c|}{$k_{eff}$}             &            \\
