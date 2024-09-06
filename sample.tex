@@ -29,6 +29,7 @@
 \usepackage{fancyhdr}
 \usepackage{tocloft}
 \usepackage{pdfpages}
+\usepackage{adjustbox}
 
 \renewcommand\cftsecafterpnum{\vskip15pt}
 \renewcommand\cftsubsecafterpnum{\vskip15pt}
@@ -37,12 +38,14 @@
 \renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}.}
 \renewcommand{\contentsname}{\hfill\bfseries\Large Contents\hfill}   
 \renewcommand{\listfigurename}{\hfill\bfseries\Large List of Figures\hfill}
+\renewcommand{\listtablename}{\hfill\bfseries\Large List of Tables\hfill}
 \renewcommand{\thefigure}{\arabic{figure}}
 \newcommand{\qed}{\hfill\blacksquare}
 \renewcommand{\bibname}{\hfill\bfseries\Large References \hfill\hfill}
 \renewcommand{\abstractname}{\bfseries\Large Abstract \hfill\hfill}
 
 \captionsetup{figurename=Figure,labelsep=period}
+\captionsetup{tablename=Table,labelsep=period}
 
 \newcounter{lemma}
 \newcounter{proposition}
@@ -182,6 +185,15 @@ Your abstract should be here. \vfill
 \thispagestyle{empty}
 \clearpage
 
+%%% List of Tables
+{%
+\let\oldnumberline\numberline%
+\renewcommand{\numberline}{\tablename~\oldnumberline}%
+\listoftables%
+}
+\thispagestyle{empty}
+\clearpage
+
 %%% reset page numbering
 \setcounter{page}{1}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -256,6 +268,31 @@ This is the first subsection.
 \end{algorithm}
 %
 Algorithm~\ref{algo:myalgo} is our proposed algorithm.
+
+\begin{table}[!b]
+  \centering
+  \caption{Solutions for the criticality calculations}
+  \label{tab1} 
+\begin{adjustbox}{width=0.8\textwidth} % Adjust your table to the text width
+  \begin{tabular}{| p{0.05\linewidth} | p{0.1\linewidth} | p{0.1\linewidth} | p{0.1\linewidth} | c | c | p{0.1\linewidth} |}
+  \hline 
+         &             &                 &                     & \multicolumn{2}{c|}{$k_{eff}$}             &            \\
+   \cline{5-6}
+   Cases & Boron (ppm) & Bank D Position (steps) & Fully inserted bank & MCS                   & KENO                  & Difference (pcm) \\
+   \hline
+   1     & 1285        & 167             & -                   & 0.99954 $\pm$ 0.00002 & 0.99990 $\pm$ 0.00001 & -36 $\pm$ 2   \\ \hline
+   2     & 1291        & 230             & -                   & 0.99998 $\pm$ 0.00003 & 1.00032 $\pm$ 0.00001 & -34 $\pm$ 3   \\ \hline
+   3     & 1270        & 97              & Bank A              & 0.99836 $\pm$ 0.00003 & 0.99880 $\pm$ 0.00001 & -44 $\pm$ 3   \\ \hline
+   4     & 1270        & 113             & Bank B              & 0.99900 $\pm$ 0.00003 & 0.99936 $\pm$ 0.00001 & -36 $\pm$ 3   \\ \hline
+   5     & 1270        & 119             & Bank C              & 0.99863 $\pm$ 0.00003 & 0.99904 $\pm$ 0.00001 & -41 $\pm$ 3   \\ \hline
+   6     & 1270        & 18              & Bank D              & 0.99871 $\pm$ 0.00003 & 0.99908 $\pm$ 0.00001 & -37 $\pm$ 3   \\ \hline
+   7     & 1270        & 69              & Bank SA             & 0.99857 $\pm$ 0.00003 & 0.99902 $\pm$ 0.00001 & -45 $\pm$ 3   \\ \hline
+   8     & 1270        & 134             & Bank SB             & 0.99897 $\pm$ 0.00004 & 0.99932 $\pm$ 0.00001 & -35 $\pm$ 4   \\ \hline
+   9     & 1270        & 71              & Bank SC             & 0.99910 $\pm$ 0.00003 & 0.99898 $\pm$ 0.00001 & 12  $\pm$ 3   \\ \hline
+   10    & 1270        & 71              & Bank SD             & 0.99916 $\pm$ 0.00003 & 0.99898 $\pm$ 0.00001 & 18  $\pm$ 3   \\ \hline
+  \end{tabular}
+  \end{adjustbox}
+\end{table}
 
 \subsection{Another subsection}
 
