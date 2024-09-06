@@ -43,11 +43,15 @@
 \addtolength{\cftfignumwidth}{\mylen}
 \addtolength{\cfttabnumwidth}{\mylen}
 
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
 \renewcommand\cftsecafterpnum{\vskip15pt}
 \renewcommand\cftsubsecafterpnum{\vskip15pt}
 \renewcommand\cftfigafterpnum{\vskip15pt}
 \renewcommand{\thesection}{\Roman{section}.}
 \renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}.}
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.}
 \renewcommand{\contentsname}{\hfill\bfseries\Large Contents\hfill}   
 \renewcommand{\listfigurename}{\hfill\bfseries\Large List of Figures\hfill}
 \renewcommand{\listtablename}{\hfill\bfseries\Large List of Tables\hfill}
@@ -58,6 +62,8 @@
 
 \captionsetup{figurename=Figure,labelsep=period}
 \captionsetup{tablename=Table,labelsep=period}
+
+\hyphenpenalty=500
 
 \newcounter{lemma}
 \newcounter{proposition}
@@ -92,33 +98,27 @@
 %%%%%% Front cover
 %%%%%%%%%%%%%%%%%%%%%%%%
 \begin{center}
-\LARGE Master's Thesis / Doctoral Thesis
+\LARGE Doctoral Thesis
 % or Ph.D...
 
 \vspace{3cm}
-\huge <Title>
-% Great Work That None Can Do Except Me
+\huge Enhanced Fidelity of Monte Carlo Coupled Multi-Physics Simulations for Light Water Reactors
 
 \vfill
 
-\LARGE <Your name>
-% Gil Dong Hong
+\LARGE Muhammad Imron
 
 \vspace{2cm}
 
-\LARGE <Your department> 
+\LARGE Department of Nuclear Engineering 
 % Department of Computer Science and Engineering
-
-\LARGE (<Your major>)
-% (Check your major. Write only if your major name is different from your department(school))
 
 \vspace{2cm}
 
 \LARGE Ulsan National Institute of Science and Technology
 \vspace{2cm}
 
-\LARGE <Year>
-% 2021
+\LARGE 2024
 
 \end{center}
 \thispagestyle{empty}
@@ -132,21 +132,15 @@
 
 \hbox{ }
 
-\huge <Title> 
-% Great Work That None Can Do Except Me
+\huge Enhanced Fidelity of Monte Carlo Coupled Multi-Physics Simulations for Light Water Reactors 
 
 \vspace{5cm}
 
-\LARGE <Your name>
-% Gil Dong Hong
+\LARGE Muhammad Imron
 
 \vspace{6cm}
 
-\LARGE <Your department> 
-% Department of Computer Science and Engineering
-
-\LARGE (<Your major>)
-% Check your major. Write only if your major name is different from your department(school)
+\LARGE Department of Nuclear Engineering 
 
 \vspace{2cm}
 
@@ -168,7 +162,16 @@
 
 % Abstract
 \begin{abstract}
-Your abstract should be here. \vfill
+
+\begin{center}
+\LARGE Enhanced Fidelity of Monte Carlo Coupled Multi-Physics Simulations for Light Water Reactors 
+\end{center}
+\vspace{1cm}
+
+This thesis presents a framework to enhance the fidelity of typical Monte Carlo (MC) coupled multi-physics simulations for Light Water Reactors (LWRs) through two key improvements. First, the introduction of multi-physics simulations with spatially continuous material properties using the Functional Expansion Tally (FET) method combined with delta-tracking. Second, the incorporation of on-the-fly thermal expansion of reactor core components during MC particle tracking. The use of spatially continuous material properties is crucial for accurately modeling spatial self-shielding effects, which depend on smooth intra-fuel-pellet temperature distributions. Additionally, modeling thermal expansion is essential because the geometric data of reactor components is typically provided at room temperature, while reactors operate at much higher temperatures. Numerical experiments are conducted to evaluate the proposed multi-physics framework across a range of reactor core problems, from two-dimensional pin-cell to whole-core reactor problems. Results show that introducing spatially continuous material properties alone produces solutions that asymptotically approach those from conventional cell-based discretized simulations with infinitesimally small cells. Additionally, the method reduces simulation times by over threefold compared to the cell-based discretized approach with very small cells for typical LWR problems. Moreover, incorporating both spatially continuous material properties and thermal expansion significantly improves the accuracy of reactor simulations when compared to measured reactor data. These findings suggest that integrating the proposed framework into reactor modeling can significantly enhance simulation fidelity. Therefore, the framework has the potential to be incorporated into future Monte Carlo production codes to meet the growing demands for improved reactor safety.
+
+
+ \vfill
 \end{abstract}
 
 \clearpage
@@ -207,9 +210,10 @@ Your abstract should be here. \vfill
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%			section 1, usually Introduction
+%			Introduction
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Introduction} 
+\section{Introduction}
+Advancements in modern computing over the past 50 years have enabled the direct whole-core Monte Carlo coupled multi-physics simulations of large-scale light water reactors. Numerous examples of such simulations can be found in the literature. However, even with such "high-fidelity" methodology, their solutions still often cannot reflect the experimental solutions. The reasons could be many, but two of them are: first, typical direct whole-core Monte Carlo coupled multi-physics simulations often ignore intra-fuel-pellet temperature distribution which particularly crucial for correctly modeling spatial self-shielding effects. Second, typical direct whole-core Monte Carlo coupled multi-physics simulations often ignore thermal expansion of the reactor core materials.
 
 Your introduction should be here. You may need a reference~\cite{ref_sample}.
 
@@ -218,7 +222,7 @@ Your introduction should be here. You may need a reference~\cite{ref_sample}.
 %			section 2
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage 
-\section{Second section} 
+\section{Spatially Continuous Material Properties} 
 
 My second section starts with my equation, which can be written as 
 %
@@ -246,18 +250,19 @@ Fig.~\ref{fig:myfigure} is a sample figure.
 %    \label{fig:model}
 %\end{figure}
 
+\subsection{Functional Expansion Tally}
+\subsection{Polynomials Calculation}
+\subsection{Delta-tracking}
+\subsection{Majorant Cross Section Computation}
+\subsection{Calculation Flow}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %			section 3
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage 
-\section{Third section} 
+\section{Thermal Expansion} 
 My third section starts. 
-
-\subsection{First subsection}
-This is the first subsection. 
-
 
 \begin{algorithm}
 	\caption{My Algorithm.} \label{algo:myalgo}
@@ -298,14 +303,33 @@ Algorithm~\ref{algo:myalgo} is our proposed algorithm.
   \end{adjustbox}
 \end{table}
 
-\subsection{Another subsection}
+\subsection{Theory}
+\subsection{Thermal Expansion Coefficients}
+\subsection{On-the-fly Thermal Expansion}
+\subsection{Calculation Flow}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%			sections...
+%			section 4
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage 
-\section{Following Sections} 
+\section{Numerical Results} 
+\subsection{Spatially Continuous Material Properties}
+\subsubsection{Two-dimensional Pin-cell Problem}
+\subsubsection{Three-dimensional Pin-cell Problem}
+\subsubsection{Three-dimensional Assembly Problem}
+\subsubsection{Whole-core Reactor Problem}
+
+\subsection{Thermal Expansion}
+\subsubsection{Assembly Problem}
+\subsubsection{Whole-core Reactor Problem}
+\subsubsection{Isothermal Temperature Coefficient}
+\subsubsection{Whole-core Reactor Depletion using Restart Calculations}
+
+\subsection{Combined Framework}
+\subsubsection{Assembly Problem}
+\subsubsection{Whole-core Reactor Problem}
+\subsubsection{Whole-core Reactor Depletion using Restart Calculations}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
