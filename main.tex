@@ -64,7 +64,7 @@
 \captionsetup{figurename=Figure,labelsep=period}
 \captionsetup{tablename=Table,labelsep=period}
 
-\hyphenpenalty=500
+%%%\hyphenpenalty=9000
 
 \newcounter{lemma}
 \newcounter{proposition}
@@ -206,10 +206,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %			Introduction
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Introduction}
-Advancements in modern computing over the past 50 years have enabled the direct whole-core Monte Carlo coupled multi-physics simulations of large-scale light water reactors. Numerous examples of such simulations can be found in the literature. However, even with such "high-fidelity" methodology, their solutions still often cannot reflect the experimental solutions. The reasons could be many, but two of them are: first, typical direct whole-core Monte Carlo coupled multi-physics simulations often ignore intra-fuel-pellet temperature distribution which particularly crucial for correctly modeling spatial self-shielding effects. Second, typical direct whole-core Monte Carlo coupled multi-physics simulations often ignore thermal expansion of the reactor core materials.
-
-Your introduction should be here. You may need a reference~\cite{ref_sample}.
+\include{section_1}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -323,7 +320,7 @@ Algorithm~\ref{algo:myalgo} is our proposed algorithm.
 \subsection{Combined Framework}
 \subsubsection{Assembly Problem}
 \subsubsection{Whole-core Reactor Problem}
-\subsubsection{Whole-core Reactor Depletion using Restart Calculations}
+%\subsubsection{Whole-core Reactor Depletion using Restart Calculations}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
