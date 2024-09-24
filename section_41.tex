@@ -1,0 +1,215 @@
+\subsection{Spatially Continuous Material Properties} \label{sec41}
+
+This subsection presents and discusses the solutions for MC coupled multi-physics simulations with spatially continuous material properties. For multi-physics feedback in all problem cases, unless specified otherwise, radial heat conduction calculations within the fuel pellet were conducted using 10 radial meshes, while a single mesh was employed for the gap and cladding regions. The resulting radial fuel temperature distribution was then averaged based on the number of radial cells used in the neutronic calculations.
+
+In the conventional or cell-based approach, the problem geometry was discretized into several cells, with material properties such as temperature and density being uniform within each cell. This discretization was necessary to capture material property variations across the problem geometry. In contrast, in the FET-based cases, explicit problem geometry discretization was unnecessary. Instead, the power and Xenon absorption rates distributions were reconstructed using 100 axial and 10 radial equidistant meshes for each pin during each TH update and equilibrium Xenon feedback, respectively.
+
+For tally reconstruction, seventh-order Legendre polynomials and ninth-order Zernike polynomials were used in the axial and radial directions, respectively.
+
+\subsubsection{Two-dimensional Pin-cell Problem}
+
+This two-dimensional pin-cell problem, based on the work of Choi and Joo \cite{nchoi_2020}, is designed to evaluate the temperature distribution within a fuel pellet and its influence on spatial self-shielding. The case involves a two-dimensional pin-cell multi-physics model, utilizing UO$_2$ fuel enriched to 2.1 wt.\% and a linear power density of 175 W/cm. To maintain a constant axial profile, the coolant flow rate is assumed to be infinite. The coolant bulk temperature is fixed at 600K, with no boron dilution in the coolant.
+
+Three cases are presented in this problem, as outlined in Table \ref{tab2}. Each case varies in the number of radial cells used for neutronic calculations. Cases A1, A2, and A3 are cell-based, with discretization into 1, 5, and 20 equally spaced radial cells, respectively. The results from these cases are compared to those obtained from the FET case, which utilizes continuous fuel temperature. It is important to note that all simulations used $5\times10^4$ particles per cycle, over a total of 30,000 cycles, with 27,500 cycles designated as active.
+\begin{table}
+    \centering
+    \caption{Two-dimensional pin-cell problem infinite multiplication factors.}
+    \label{tab2} 
+    % \begin{adjustbox}{width=0.6\textwidth} % Adjust your table to the text width
+    \begin{tabular}{| c | c | c | }
+    \hline 
+     Cases & \# radial discretization & $k_{inf}$ \\
+     \hline
+     A1     & 1   & $1.22203\pm0.00002$      \\ \hline
+     A2     & 5   & $1.22250\pm0.00002$      \\ \hline
+     A3     & 20  & $1.22259\pm0.00002$      \\ \hline
+     FET    & N/A & $1.22261\pm0.00002$      \\ \hline
+    \end{tabular}
+    % \end{adjustbox}
+\end{table}
+
+The continuous fuel temperature from the FET case is compared to the piecewise fuel temperature from the other cases in Figure \ref{fig_41}. As shown, the continuous temperature from the FET case closely aligns with the piecewise fuel temperature as the mesh refinement increases. For a direct comparison, radial tallies of absorption and fission rates across 20 meshes were conducted during the simulation, with the results displayed in Figure \ref{fig_42}. The figure demonstrates that the proposed framework yields more accurate solutions as the mesh size decreases. The differences in absorption rates between cases A2 and A3 and the FET case are less than 1.0\%, while the A1 case overestimates the self-shielding absorption at the fuel pellet's periphery by up to 2.6\%, due to the higher peripheral fuel temperature in the A1 case. In contrast, the fission rate remains relatively uniform with no significant differences, as thermal neutrons, responsible for fission, are less affected by self-shielding. The combination of higher resonance absorption at the fuel pellet periphery and a relatively flat fission rate distribution results in a lower infinite multiplication factor ($k_{inf}$), as observed in the A1 case (see Table \ref{tab2}).
+
+\begin{figure}
+      \centering
+      \includegraphics[width=0.5\textwidth]{figs/pin_2d_temp.pdf}
+      \caption{Radial fuel temperature distribution for two-dimensional pin-cell problem.}
+      \label{fig_41}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{minipage}{.49\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{figs/pin_2d_abs.pdf}
+    \end{minipage}%
+    \begin{minipage}{.51\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{figs/pin_2d_fiss.pdf}
+    \end{minipage}
+    \caption[Normalized absorption and fission rates]{Normalized absorption and fission rates, and their respective relative differences for the two-dimensional pin-cell problem.}
+    \label{fig_42}
+\end{figure}
+
+To verify that the $k_{inf}$ from the FET case asymptotically approaches the solution obtained with infinitesimal cell sizes, a quadratic extrapolation was conducted. This extrapolation uses Lagrange basis polynomials, with the variable defined as the inverse of the number of radial rings. The extrapolated $k_{inf}$ is shown in Table \ref{tab2}, and the extrapolation result is plotted in Figure \ref{fig_43}. As illustrated, the extrapolated $k_{inf}$ lies within the uncertainty range of the $k_{inf}$ value obtained from the FET case.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{figs/k_inf.pdf}
+    \caption{Radial fuel temperature distribution for two-dimensional pin-cell problem.}
+    \label{fig_43}
+\end{figure}
+
+This results demonstrate ....
+
+\subsubsection{Three-dimensional Pin-cell Problem}
+
+This three-dimensional pin-cell problem employs UO$_2$ fuel with 2.1 wt.\% enrichment and involves two Inconel spacer grids at the top and bottom, with five Zircaloy spacer grids positioned in between. This test problem is a critical boron concentration (CBC) search problem at full power, corresponding to 67 kW of thermal power. Unlike previous problem, this problem includes equilibrium Xenon feedback.
+
+Three cases were developed for comparison with the proposed framework. The first two cases, B1 and B2, are cell-based, where the problem domain is discretized into several cells. In the B1 case, the domain is divided into 25 axial cells and 1 radial cell, while in the B2 case, it is discretized into 100 axial cells and 5 radial cells (for the fuel pellet). The finer mesh in the B2 case is essential for capturing smoother distributions of fuel temperature, Xenon number densities (both radially and axially), and coolant density (including boron nuclide concentrations) along the axial direction. All cases simulated $5.0\times10^4$ particles per cycle over 22,500 cycles, with 20,000 active cycles.
+
+Table \ref{tab3} compares the CBC results from all cases, showing that the solutions converge toward those obtained from the FET case as the cells' sizes become infinitesimal. This convergence is mainly due to a more accurate representation of the radial intra-fuel-pellet temperature distribution, leading to improved modeling of the self-shielding effect.
+\begin{table}
+    \centering
+    \caption{Calculation results for three-dimensional pin-cell problem.}
+    \label{tab3} 
+    % \begin{adjustbox}{width=0.6\textwidth} % Adjust your table to the text width
+    \begin{tabular}{| c | c | c | c | }
+    \hline 
+     Cases & \# axial/radial discretization & Critical Boron Concentration (ppm) & Relative wall-clock time \\
+     \hline
+     B1     & 25/1  & $1507.5\pm0.3$ & 1.2      \\ \hline
+     B2     & 100/5 & $1511.1\pm0.3$ & 4.5      \\ \hline
+     FET    & N/A   & $1512.5\pm0.3$ & 1.0      \\ \hline
+    \end{tabular}
+    % \end{adjustbox}
+\end{table}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\textwidth]{figs/temp_dens.pdf}
+    \caption[Normalized axial power, fuel temperature, and coolant density]{Normalized axial power, fuel temperature, and coolant density for B2 and FET cases.}
+    \label{fig_44}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\textwidth]{figs/axial_diff.pdf}
+    \caption[Axial power percentage differences of the FET case]{Axial power percentage differences of the FET case against B1 and B2 cases, and their corresponding one sigma of standard deviations.}
+    \label{fig_45}
+\end{figure}
+
+Figure \ref{fig_44} illustrates the radially averaged power, fuel temperature, and coolant density, which exhibit good agreement between cases. To further verify the accuracy of the FET case, a 100-bin axial mesh tally was performed in all cases, and percentage differences, along with one-sigma standard deviations, are presented in Figure \ref{fig_45}. As shown, the axial power differences and corresponding standard deviations between the FET and B2 cases are less than 0.5\%. These comparisons demonstrate the higher accuracy achievable with the proposed approach.
+
+In addition, Table \ref{tab3} demonstrates that, despite its greater accuracy, the FET case has the shortest runtime. It is 1.2 and 4.5 times faster than the B1 and B2 cases, respectively. This performance improvement primarily due to reduced number of cells, which optimizes delta-tracking in two key ways. First, with fewer particle crossings, material-wise macroscopic cross-sections are computed less frequently. Second, with fewer cells, the recursive routine for determining particle location is more efficient. For this reason, delta-tracking may not offer substantial benefits if the problem involves many cells. Moreover, in cases without neutron absorbers, such as burnable poisons or control rods, the rejection sampling for delta-tracking can be performed more efficiently.
+
+\subsubsection{Three-dimensional Assembly Problem} \label{3d_asm}
+
+This three-dimensional assembly problem is identical to Problem \#6 from the VERA benchmark (Godfrey, 2013), using 3.1 wt.\% enriched fuel pellets. This problem is simulated at hot full power (HFP), equivalent to 17.67 MW of thermal power. Unlike previous problem cases, this problem includes non-fuel structural materials such as the pin plenum, nozzles, core plates, and axial reflectors. Figure \ref{fig_46} illustrates the three-dimensional assembly problem.
+
+\begin{figure}
+    \centering
+    \begin{minipage}{.4\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{figs/radial.pdf}
+    \end{minipage}%
+    \hspace{10em}
+    \begin{minipage}{.15\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{figs/axial.pdf}
+    \end{minipage}
+    \caption[Radial and axial geometries of the three-dimensional assembly problem]{Radial (left) and axial (right) geometries of the three-dimensional assembly problem (not to scale).}
+    \label{fig_46}
+\end{figure}
+
+Four cases were developed for comparison with the proposed framework. The first three cases, C1, C2, and C3, are traditional cell-based models where the problem domain is discretized into multiple cells. In case C1, the problem is divided into 25 equidistant axial cells without radial discretization. Case C2 refines this by using 50 equidistant axial cells and 5 equivolume radial rings in the fuel pellet to capture the temperature distribution within the pellet both radially and axially. Case C3 further increases the refinement to 100 axial cells and 5 radial rings. While FET case employs spatially continuous material properties.
+
+Each case simulated $3 \times 10^4$ particle histories per cycle, with a total of 12,500 cycles, of which 2,500 were designated as active cycles. The eigenvalue comparisons are shown in Table \ref{tab31}. As with the previous test problems, as the cell sizes become infinitesimal, the eigenvalue increases and asymptotically approaches the value from the FET case. The FET eigenvalue was also independently compared against the MC21/CTF solution \cite{kelly_2017}, with the MC21/CTF eigenvalue being approximately 40 pcm lower than the FET value.
+
+\begin{table}
+    \centering
+    \caption{Calculation results for three-dimensional assembly problem.}
+    \label{tab31} 
+    % \begin{adjustbox}{width=0.6\textwidth} % Adjust your table to the text width
+    \begin{tabular}{| c | c | c | c | }
+    \hline 
+     Cases & \# of fuel pin radial/axial discretization & $k_{inf}$ & Relative wall-clock time \\
+     \hline
+     C1     & 25/1  & $1.16404\pm0.00005$ & 1.2      \\ \hline
+     C1     & 50/2  & $1.16448\pm0.00004$ & 2.0      \\ \hline
+     C2     & 100/5 & $1.16459\pm0.00004$ & 5.0      \\ \hline
+     FET    & N/A   & $1.16465\pm0.00004$ & 1.0 $^\text{(a)}$      \\ \hline
+    \end{tabular}
+    % \end{adjustbox}
+    \begin{flushleft}
+        \small
+        $^\text{(a)}$ The absolute wall-clock time for the FET case is 1.8 hours with 70 MPI processes. \\
+    \end{flushleft}
+\end{table}
+
+The radial pin powers from the FET and C3 cases are presented in Figure \ref{fig_47}, demonstrating excellent agreement, with relative differences in pin powers being less than 0.2\% across all fuel pins. Additionally, for the assembly problem, the FET case ran 1.2, 2.0, and 5.0 times faster compared to cases C1, C2, and C3, respectively. As previously mentioned, this significant computational speedup is largely due to the absence of strong neutron absorbers. In the next subsection, the computational time speedup will be evaluated for assembly problems containing strong neutron absorbers.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.95\textwidth]{figs/pin_powers.pdf}
+    \caption[Pin powers comparisons for three-dimensional assembly problem.]{Pin powers from FET case are compared to case C3 for three-dimensional assembly problem.}
+    \label{fig_47}
+\end{figure}
+
+\subsubsection{Three-dimensional Assembly Problem with Neutron Absorbers}
+
+This test problem aims to evaluate the computational time speedup of the FET case for reactor problems with localized strong neutron absorbers. The presence of such absorbers significantly reduces the efficiency of rejection sampling in the delta-tracking method. The problem setup is identical to the assembly problem in subsection \ref{3d_asm}, with the exception that either Pyrex or control rods are inserted into the guide tubes.
+
+Pyrex is a discrete burnable neutron absorber typically used in Westinghouse reactors, made from borosilicate glass (B$_2$O$_3$-SiO$_2$), and inserted into assembly guide tubes. These inserts can be placed in any assembly not located in a control rod position. The control rod material consists of a hybrid of AIC (Ag-In-Cd)  and boron carbide (B$_4$C). The tip of the control rod is made of AIC, measuring 101.6 cm in length, while the remaining 259.05 cm is composed of boron carbide. In this problem, the control rod is inserted to 186 steps, meaning only the AIC portion is inserted into the active core.
+
+\begin{table}
+    \centering
+    \caption{Calculation results for three-dimensional assembly problem with strong neutron absorbers.}
+    \label{tab32} 
+    % \begin{adjustbox}{width=\textwidth} % Adjust your table to the text width
+    \begin{tabular}{| c | C{0.16\linewidth} | c | C{0.12\linewidth} | c | C{0.12\linewidth} | }
+    \hline 
+           &        &  \multicolumn{2}{c|}{Pyrex} & \multicolumn{2}{c|}{Control Rods}  \\
+    \cline{3-6}
+    Cases & \# of fuel pin radial/axial discretization & $k_{inf}$ & Relative wall-clock time & $k_{inf}$ & Relative wall-clock time \\
+    \hline
+    D1     & 25/1  & $0.95876\pm0.00004$ & 1.5  & $1.15972\pm0.00004$ & 0.8     \\ \hline
+    D1     & 50/2  & $0.95903\pm0.00004$ & 1.7  & $1.16020\pm0.00004$ & 2.6     \\ \hline
+    D2     & 100/5 & $0.95918\pm0.00004$ & 4.3  & $1.16040\pm0.00004$ & 7.4     \\ \hline
+    FET    & N/A   & $0.95929\pm0.00004$ & 1.0 $^\text{(a)}$  & $1.16047\pm0.00004$ & 1.0 $^\text{(b)}$      \\ \hline
+    \end{tabular}
+    % \end{adjustbox}
+    \begin{flushleft}
+        \small
+        $^\text{(a)}$ The absolute wall-clock time for the FET case is 1.9 hours with 70 MPI processes. \\
+        $^\text{(b)}$ The absolute wall-clock time for the FET case is 3.5 hours with 70 MPI processes. \\
+    \end{flushleft}
+\end{table}
+
+
+\subsubsection{Whole-core Reactor Problem}
+
+The final test problem in this sec
+Note that all simulations used $6\times10^4$ particles per cycle, over a total of 37,500 cycles, with 30,000 cycles designated as active.
+
+\begin{table}
+    \centering
+    \caption{Calculation results for whole-core problem.}
+    \label{tab33} 
+    % \begin{adjustbox}{width=\textwidth} % Adjust your table to the text width
+        \begin{tabular}{| c | C{0.25\linewidth} | c | C{0.2\linewidth} | C{0.2\linewidth} | }
+            \hline 
+            Cases & \# of fuel pin radial/axial discretization & CBC (ppm) & Relative wall-clock time & Relative memory usage \\
+            \hline
+            E1     & 25/1  & $859.6\pm0.2$ & 1.2 & 1.1      \\ \hline
+            E1     & 50/2  & $863.0\pm0.2$ & 1.8 & 2.4      \\ \hline
+            E2     & 60/5 & $864.0\pm0.2$ & 2.9 & 4.9      \\ \hline
+            FET    & N/A   & $866.2\pm0.2$ & 1.0 $^\text{(a)}$ & 1.0 $^\text{(b)}$      \\ \hline
+        \end{tabular}
+    % \end{adjustbox}
+    \begin{flushleft}
+        \small
+        $^\text{(a)}$ The absolute wall-clock time for the FET case is 14.3 hours with 70 MPI processes. \\
+        $^\text{(b)}$ The absolute memory usage for the FET case is 146.4 GB per node, with each node running 35 MPI processes.
+    \end{flushleft}
+\end{table}
+

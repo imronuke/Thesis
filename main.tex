@@ -35,6 +35,12 @@
 
 \newlength{\mylen}
 
+\usepackage{titlesec}
+\titlelabel{\thetitle. }
+
+\usepackage{array}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
 \renewcommand{\cftfigpresnum}{\figurename\enspace}
 \renewcommand{\cfttabpresnum}{\tablename\enspace}
 \renewcommand{\cftfigaftersnum}{:}
@@ -50,9 +56,10 @@
 \renewcommand\cftsecafterpnum{\vskip15pt}
 \renewcommand\cftsubsecafterpnum{\vskip15pt}
 \renewcommand\cftfigafterpnum{\vskip15pt}
-\renewcommand{\thesection}{\Roman{section}.}
-\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}.}
-\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.}
+\renewcommand\cfttabafterpnum{\vskip15pt}
+\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
 \renewcommand{\contentsname}{\hfill\bfseries\Large Contents\hfill}   
 \renewcommand{\listfigurename}{\hfill\bfseries\Large List of Figures\hfill}
 \renewcommand{\listtablename}{\hfill\bfseries\Large List of Tables\hfill}
@@ -107,7 +114,7 @@
 
 \vfill
 
-\LARGE Muhammad Imron
+\LARGE Muhammad Makrus Imron
 
 \vspace{2cm}
 
@@ -137,7 +144,7 @@
 
 \vspace{5cm}
 
-\LARGE Muhammad Imron
+\LARGE Muhammad Makrus Imron
 
 \vspace{6cm}
 
@@ -208,126 +215,28 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \include{section_1}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %			section 2
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage 
-\section{Spatially Continuous Material Properties} 
-
-My second section starts with my equation, which can be written as 
-%
-\begin{equation}\label{eq:myeq}
-\begin{split}
-	A 		&= B + C, \\
-    D + E	&= F.
-\end{split}
-\end{equation}
-Thus we have (\ref{eq:myeq}).
-
-Fig.~\ref{fig:myfigure} is a sample figure. 
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=5in]{myfigure.pdf}
-\caption{My figure.} \label{fig:myfigure}
-\end{figure}
-
-%%%% use the following in the case of eps figure
-%\begin{figure} 
-%    \centering
-%    \epsfig{file=model.eps, width = 0.9\linewidth}
-%    \caption{System model with complete bipartite graph. The maximum weighted matching is marked by circles.}
-%    \label{fig:model}
-%\end{figure}
-
-\subsection{Functional Expansion Tally}
-\subsection{Polynomials Calculation}
-\subsection{Delta-tracking}
-\subsection{Majorant Cross Section Computation}
-\subsection{Calculation Flow}
-
+\include{section_2}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %			section 3
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage 
-\section{Thermal Expansion} 
-My third section starts. 
-
-\begin{algorithm}
-	\caption{My Algorithm.} \label{algo:myalgo}
-    At the beginning ...
-    
-	\begin{algorithmic}[1]	    
-	    \STATE Do this
-        \STATE and do this\\
-        /* add explanation if necessary */
-        \STATE Finally do this
-	\end{algorithmic} 
-\end{algorithm}
-%
-Algorithm~\ref{algo:myalgo} is our proposed algorithm.
-
-\begin{table}[!b]
-  \centering
-  \caption{Solutions for the criticality calculations}
-  \label{tab1} 
-\begin{adjustbox}{width=1.0\textwidth} % Adjust your table to the text width
-  \begin{tabular}{| p{0.05\linewidth} | p{0.1\linewidth} | p{0.1\linewidth} | p{0.1\linewidth} | c | c | p{0.1\linewidth} |}
-  \hline 
-         &             &                 &                     & \multicolumn{2}{c|}{$k_{eff}$}             &            \\
-   \cline{5-6}
-   Cases & Boron (ppm) & Bank D Position (steps) & Fully inserted bank & MCS                   & KENO                  & Difference (pcm) \\
-   \hline
-   1     & 1285        & 167             & -                   & 0.99954 $\pm$ 0.00002 & 0.99990 $\pm$ 0.00001 & -36 $\pm$ 2   \\ \hline
-   2     & 1291        & 230             & -                   & 0.99998 $\pm$ 0.00003 & 1.00032 $\pm$ 0.00001 & -34 $\pm$ 3   \\ \hline
-   3     & 1270        & 97              & Bank A              & 0.99836 $\pm$ 0.00003 & 0.99880 $\pm$ 0.00001 & -44 $\pm$ 3   \\ \hline
-   4     & 1270        & 113             & Bank B              & 0.99900 $\pm$ 0.00003 & 0.99936 $\pm$ 0.00001 & -36 $\pm$ 3   \\ \hline
-   5     & 1270        & 119             & Bank C              & 0.99863 $\pm$ 0.00003 & 0.99904 $\pm$ 0.00001 & -41 $\pm$ 3   \\ \hline
-   6     & 1270        & 18              & Bank D              & 0.99871 $\pm$ 0.00003 & 0.99908 $\pm$ 0.00001 & -37 $\pm$ 3   \\ \hline
-   7     & 1270        & 69              & Bank SA             & 0.99857 $\pm$ 0.00003 & 0.99902 $\pm$ 0.00001 & -45 $\pm$ 3   \\ \hline
-   8     & 1270        & 134             & Bank SB             & 0.99897 $\pm$ 0.00004 & 0.99932 $\pm$ 0.00001 & -35 $\pm$ 4   \\ \hline
-   9     & 1270        & 71              & Bank SC             & 0.99910 $\pm$ 0.00003 & 0.99898 $\pm$ 0.00001 & 12  $\pm$ 3   \\ \hline
-   10    & 1270        & 71              & Bank SD             & 0.99916 $\pm$ 0.00003 & 0.99898 $\pm$ 0.00001 & 18  $\pm$ 3   \\ \hline
-  \end{tabular}
-  \end{adjustbox}
-\end{table}
-
-\subsection{Theory}
-\subsection{Thermal Expansion Coefficients}
-\subsection{On-the-fly Thermal Expansion}
-\subsection{Calculation Flow}
+\include{section_3}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %			section 4
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage 
-\section{Numerical Results} 
-\subsection{Spatially Continuous Material Properties}
-\subsubsection{Two-dimensional Pin-cell Problem}
-\subsubsection{Three-dimensional Pin-cell Problem}
-\subsubsection{Three-dimensional Assembly Problem}
-\subsubsection{Whole-core Reactor Problem}
-
-\subsection{Thermal Expansion}
-\subsubsection{Assembly Problem}
-\subsubsection{Whole-core Reactor Problem}
-\subsubsection{Isothermal Temperature Coefficient}
-%\subsubsection{Whole-core Reactor Depletion using Restart Calculations}
-
-\subsection{Combined Framework}
-\subsubsection{Assembly Problem}
-\subsubsection{Whole-core Reactor Problem}
-%\subsubsection{Whole-core Reactor Depletion using Restart Calculations}
+\include{section_4}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %			Conclusion
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage 
-\section{Conclusion} 
+\section{Conclusion}  \label{s5}
 My conclusion here.
 
 \clearpage

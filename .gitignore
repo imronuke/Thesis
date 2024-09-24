@@ -3,10 +3,11 @@
 *.blg
 *.lof
 *.log
-*.pdf
+main.pdf
 *.toc
 *.lot
 Exported Items.bib
 main.fdb_latexmk
 main.fls
 main.synctex.gz
+codes/
