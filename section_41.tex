@@ -1,6 +1,6 @@
 \subsection{Spatially Continuous Material Properties} \label{sec41}
 
-This subsection presents and discusses the solutions for MC coupled multi-physics simulations with spatially continuous material properties. For multi-physics feedback in all problem cases, unless specified otherwise, radial heat conduction calculations within the fuel pellet were conducted using 10 radial meshes, while a single mesh was employed for the gap and cladding regions. The resulting radial fuel temperature distribution was then averaged based on the number of radial cells used in the neutronic calculations.
+This subsection presents and discusses the solutions for MC coupled multi-physics simulations with spatially continuous material properties. For multi-physics feedback in all problem cases in this subsection, unless specified otherwise, radial heat conduction calculations within the fuel pellet were conducted using 10 radial rings, while a single mesh was employed for the gap and cladding regions. The resulting radial fuel temperature distribution was then averaged based on the number of radial cells used in the neutronic calculations.
 
 In the conventional or cell-based approach, the problem geometry was discretized into several cells, with material properties such as temperature and density being uniform within each cell. This discretization was necessary to capture material property variations across the problem geometry. In contrast, in the FET-based cases, explicit problem geometry discretization was unnecessary. Instead, the power and Xenon absorption rates distributions were reconstructed using 100 axial and 10 radial equidistant meshes for each pin during each TH update and equilibrium Xenon feedback, respectively.
 
@@ -24,6 +24,7 @@ Three cases are presented in this problem, as outlined in Table \ref{tab2}. Each
      A2     & 5   & $1.22250\pm0.00002$      \\ \hline
      A3     & 20  & $1.22259\pm0.00002$      \\ \hline
      FET    & N/A & $1.22261\pm0.00002$      \\ \hline
+     Extrapolation    & N/A & $1.22262$      \\ \hline
     \end{tabular}
     % \end{adjustbox}
 \end{table}
@@ -59,7 +60,7 @@ To verify that the $k_{inf}$ from the FET case asymptotically approaches the sol
     \label{fig_43}
 \end{figure}
 
-This results demonstrate ....
+These results demonstrate that the FET solutions asymptotically converge to those obtained from conventional cell-based discretized simulations with infinitesimally small cells. Furthermore, modeling radial temperature variations in the fuel pellet is essential for obtaining more accurate reactivity effects.
 
 \subsubsection{Three-dimensional Pin-cell Problem}
 
@@ -157,9 +158,9 @@ The radial pin powers from the FET and C3 cases are presented in Figure \ref{fig
 
 \subsubsection{Three-dimensional Assembly Problem with Neutron Absorbers}
 
-This test problem aims to evaluate the computational time speedup of the FET case for reactor problems with localized strong neutron absorbers. The presence of such absorbers significantly reduces the efficiency of rejection sampling in the delta-tracking method. The problem setup is identical to the assembly problem in subsection \ref{3d_asm}, with the exception that either Pyrex or control rods are inserted into the guide tubes.
+This test problem aims to evaluate the computational time speedup of the FET case for reactor problems with localized strong neutron absorbers. The presence of localized absorbers is expected to reduce the efficiency of rejection sampling in the delta-tracking method. The problem setup is identical to the assembly problem in subsection \ref{3d_asm}, with the exception that either Pyrex or control rods are inserted into the guide tubes.
 
-Pyrex is a discrete burnable neutron absorber typically used in Westinghouse reactors, made from borosilicate glass (B$_2$O$_3$-SiO$_2$), and inserted into assembly guide tubes. These inserts can be placed in any assembly not located in a control rod position. The control rod material consists of a hybrid of AIC (Ag-In-Cd)  and boron carbide (B$_4$C). The tip of the control rod is made of AIC, measuring 101.6 cm in length, while the remaining 259.05 cm is composed of boron carbide. In this problem, the control rod is inserted to 186 steps, meaning only the AIC portion is inserted into the active core.
+The tip of the control rod is made of AIC, measuring 101.6 cm in length, while the remaining 259.05 cm is composed of boron carbide. In this problem, the control rod is inserted to 186 steps, meaning only the AIC portion is inserted into the active core.
 
 \begin{table}
     \centering
@@ -188,8 +189,13 @@ Pyrex is a discrete burnable neutron absorber typically used in Westinghouse rea
 
 \subsubsection{Whole-core Reactor Problem}
 
-The final test problem in this sec
-Note that all simulations used $6\times10^4$ particles per cycle, over a total of 37,500 cycles, with 30,000 cycles designated as active.
+The final test problem for the spatially continuous material properties problems is the core problem, which is identical to Problem \#7 of the VERA benchmark: a three-dimensional beginning-of-cycle (BOC) physical reactor. This benchmark provides detailed reactor core geometry and internal reactor structures. This test problem estimates the CBC at HFP.
+
+As with the previous test problems, several cases were developed to compare the spatially continuous material approach with the cell-based approach. These cases, along with descriptions of the cell discretizations, are listed in Table \ref{tab33}. Note that all simulations utilized \(6 \times 10^4\) particles per cycle, over a total of 37,500 cycles, with 30,000 cycles designated as active. This number of particle of histories produces axially averaged pin-power densities with maximum standard deviation around 0.6\%. In this problem, the reactor is modelled in a quarter core.
+
+The CBC results are presented in Table \ref{tab33}. As shown in the table, the behavior of the solutions is similar to those from the previous problems, where the CBC from the cell-based converges to that from the FET case using spatially continuous material properties. The CBC difference, compared to the E1 case with 25/1 radial/axial cell discretizations, is around 7 ppm, corresponding to approximately 70 pcm of reactivity. This result is consistent with previous solutions. Moreover, the FET case only requires one-third of the simulation time to achieve similar or even better accuracy compared to the E2 case with 60/5 radial/axial cell discretizations.
+
+In this whole-core problem, the random access memory (RAM) requirements were also evaluated. The memory usage was measured in the Ubuntu operating system using the \code{free -m} command during the simulation. As shown in the table, the FET case requires only 20\% of the RAM compared to the E3 case. This reduction in memory usage is mainly due to the fewer number of cells employed in the FET case. Although there is additional memory needed to store the FET coefficients, the number of coefficients is too small to offset the overall memory reduction. This demonstrates that the use of spatially continuous materials with FET not only achieves better accuracy with less simulation time, but also requires lower memory usage.
 
 \begin{table}
     \centering
@@ -213,3 +219,32 @@ Note that all simulations used $6\times10^4$ particles per cycle, over a total o
     \end{flushleft}
 \end{table}
 
+Figure \ref{fig_49} shows the assembly power map and its comparison between the FET and E3 cases. As observed, the maximum and minimum assembly power relative differences are approximately 0.3\%, with a root mean squared error (RMS) of 0.2\%. And the relative difference on axial power, shown in Figure \ref{fig_49a}, is also less than 1\%. At the pin level, the normalized radial pin-power densities also exhibit good agreement between the FET and E3 cases, with an RMS of 0.3\%, and maximum and minimum relative differences of less than 2\%, as shown in Figure \ref{fig_48}. Additionally, the three-dimensional view of radially pin-averaged coolant and  fuel temperatures from FET case are plotted in Figure \ref{fig_49}. These results confirm that the solutions with spatially continuous material properties are well aligned with the cell-based cases that use very small cells.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/asm_power.pdf}
+    \caption{Assembly powers comparison between FET and E3 cases}
+    \label{fig_49}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{figs/axial_pow.pdf}
+    \caption[Axial power comparison for the whole-core problem]{Axial power from FET case compared with that from E3 case for the whole-core problem}
+    \label{fig_49a}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\textwidth]{figs/core_fet.pdf}
+    \caption[Normalized radial pin-power densities of the FET case for the whole-core problems]{Normalized radial pin-power densities of the FET case for the whole-core problems (a), and their comparisons against E3 case (b)}
+    \label{fig_48}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\textwidth]{figs/fuel.pdf}
+    \caption[Three-dimensional view of radially pin-averaged coolant and  fuel temperatures]{Three-dimensional view of radially pin-averaged coolant temperature (a) and fuel temperature (b) from FET case}
+    \label{fig_49}
+\end{figure}

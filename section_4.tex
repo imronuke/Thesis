@@ -1,8 +1,35 @@
 \newpage 
 \section{Numerical Results} \label{s4}
-With the theoretical background described in the previous sections, this section demonstrates the capabilities of the proposed framework in addressing multi-physics problems using several test cases, ranging from two-dimensional pin-cell problems to whole-core problems. Most of the problems presented in this thesis use material compositions and geometry adapted from the Virtual Environment for Reactor Applications (VERA) core physics benchmark \cite{godfrey}. Additionally, ENDF/B-VII.1 was used for the MCS cross section library.
+With the theoretical background described in the previous sections, this section demonstrates the capabilities of the proposed framework in addressing multi-physics problems using several test cases, ranging from two-dimensional pin-cell problems to whole-core problems. Most of the problems presented in this thesis use material compositions and geometry from the Virtual Environment for Reactor Applications (VERA) core physics benchmark \cite{godfrey}. Additionally, ENDF/B-VII.1 was used for the MCS cross section library.
 
-This section is divided into three subsections. Subsection \ref{sec41} provides the solutions for MC coupled multi-physics with spatially continuous material properties. While the solutions for thermal expansion are presented in subsection \ref{sec42}. Lastly, subsection \ref{sec43} presents the solutions for assembly and whole-core problems using both spatially continuous material and thermal expansion methods.
+This section is divided into three major subsections. Subsection \ref{sec40} briefly describes the VERA reactor benchmark used for the numerical test problems in this thesis. Subsection \ref{sec41} provides the solutions for MC coupled multi-physics with spatially continuous material properties. While the solutions for thermal expansion are presented in subsection \ref{sec42}. Lastly, subsection \ref{sec43} presents the solutions for assembly and whole-core problems using both spatially continuous material and thermal expansion methods.
+
+\subsection{Benchmark Description} \label{sec40}
+
+The reactor operational data for the VERA benchmark were taken from Watts Bar Generating Station Unit 1, operated by the Tennessee Valley Authority (TVA) since 1996. This reactor is a 3411 MWth Westinghouse pressurized water reactor (PWR) with 193 fuel assemblies and an active core height of 365.76 cm. Each fuel assembly contains a \(17 \times 17\) array of pins, consisting of 264 fuel pins, 24 guide tubes, and 1 instrumentation tube as shown in Figure \ref{f3}. Eight spacer grids are used for each assembly to maintain its structural integrity. Radially, the fuel-assembly pitch is 21.5 cm, with fuel pins within an assembly having pitch of 1.26 cm. In a \(17 \times 17\) array of pins, this results in a 0.04 cm inter-assembly gap. The fuel pin consists of a fuel pellet with a radius of 0.4096 cm, along with a gap and cladding, as illustrated in Figure \ref{f2}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{figs/asm.png}
+    \caption[Fuel assembly radial layout.]{Fuel assembly radial layout. Adapted from \cite{albagami}}
+    \label{f3}
+\end{figure}
+
+During the first cycle, the reactor employed three different fuel enrichments: 2.11\%, 2.62\%, and 3.10\% by weight of U-235, and Pyrex burnable absorbers were used. Reactor regulation is provided by 57 control rod assemblies, grouped into 8 banks, as illustrated in Figure \ref{f1}. Pyrex is a discrete burnable neutron absorber typically used in Westinghouse reactors, made from borosilicate glass (B$_2$O$_3$-SiO$_2$), and inserted into assembly guide tubes. These inserts can be placed in any assembly not located in a control rod position. The control rod is an axial stack of Silver-Indium-Cadmium (AIC) and boron carbide (B$_4$C). A set of 24 control rods are clustered into an reactor cluster rod assemblies (RCCAs) to control and ensure a safe core shut down. The tip of the control rods are made from AIC and the remaining portions up to the plenum are made from B$_4$C. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\textwidth]{figs/pin.png}
+    \caption[Fuel rod radial layout.]{Fuel rod radial layout. Adapted from \cite{albagami}}
+    \label{f2}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{figs/core.png}
+    \caption[VERA benchmark core configuration and control rods layout.]{VERA benchmark core configuration and control rods layout. Adapted from \cite{godfrey}}
+    \label{f1}
+\end{figure}
 
 \input{section_41}
 \clearpage

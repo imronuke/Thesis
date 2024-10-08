@@ -1,8 +1,8 @@
 \subsection{Thermal Expansion} \label{sec42}
 
-To assess the effects of thermal expansion (TE) modeling on MC coupled multi-physics reactor simulations, a series of test problems were developed. These test problems include assembly and core problems, as well as depletion problems with restart cases. The problem geometries and material compositions were adopted from the Virtual Environment for Reactor Applications (VERA) core physics benchmark \cite{godfrey}. Additionally, ENDF/B-VII.1 was used for the MCS cross section library.
+To assess the effects of thermal expansion (TE) modeling on MC coupled multi-physics reactor simulations, a series of test problems were developed. These test problems include assembly and core problems, as well as depletion problems with restart cases. The problem geometries and material compositions were adopted from the Virtual Environment for Reactor Applications (VERA) core physics benchmark \cite{godfrey}.
 
-In all problems considered in this subsection, the TH parameters are updated every 500 cycles of MCS particle tracking. In MCS, the fuel pellets are axially discretized into 25 equidistant cells without radial discretization, where fission power is tallied. While the TH solvers discretize the problem axially into 25 equidistant meshes corresponding to the MCS cells. Additionally, in the TH solvers, the fuel pellets are radially discretized into 10 equidistant rings, while the cladding and gap are each represented by a single ring to numerically solve the heat conduction equation.
+In all problems considered in this subsection, the TH parameters are updated every 500 cycles of MCS particle tracking. In MCS, the fuel pellets are axially discretized into 25 equidistant cells without radial discretization, where fission power is tallied. While the TH solvers discretize the problem axially into 25 equidistant meshes corresponding to the MCS cells. Additionally, in the TH solvers, the fuel pellets are radially discretized into 10 equidistant rings, while the cladding and gap are each represented by a single ring to numerically solve the heat conduction equation. The radial fuel temperature distribution was subsequently averaged to obtain the radially averaged fuel pellet temperature for use in MCS simulations.
 
 
 \subsubsection{Small Lattice Problem}
@@ -96,7 +96,7 @@ The core problem specifications are similar to those of Problem 7 from the VERA 
     \end{adjustbox}
 \end{table}
 
-The effects of TE on the core problem are evaluated at various expansion temperatures, as can be seen in Table \ref{tab423}. For the core-averaged case, the nominal core-averaged reactor temperature at HFP is applied, with fuel expansion set at 900 K and coolant and cladding expansion at 583 K. The assembly-averaged case uses assembly-level averaged temperatures for geometry expansion within each assembly, while the pin-averaged case applies pin-level averaged temperatures for each pin cell. All cases simulated $3\times10^5$ particles per cycle over a total of 42,000 cycles, with 38,000 active cycles, resulting in a maximum relative standard deviation of 0.8\% for radial pin powers.
+The effects of TE on the core problem are evaluated at various expansion temperatures, as can be seen in Table \ref{tab423}. For the core-averaged case, the nominal core-averaged reactor temperature at HFP is applied, with fuel expansion set at 900 K, while coolant and cladding expansion are set at 583 K. The assembly-averaged case uses assembly-level averaged temperatures for geometry expansion within each assembly, while the pin-averaged case applies pin-level averaged temperatures for each pin cell. All cases simulated $3\times10^5$ particles per cycle over a total of 42,000 cycles, with 38,000 active cycles, resulting in a maximum relative standard deviation of 0.8\% for radial pin powers.
 
 Table \ref{tab423} compiles the results of the whole-core reactor problem. Pin-power errors were calculated relative to the pin-averaged case. As shown in the table, when thermal expansion is not considered, the eigenvalue is overestimated compared to the pin-averaged case, and the errors at the pin level are more pronounced. Using core-averaged nominal temperatures improves the eigenvalue, reducing the difference to less than 10 pcm compared to the pin-wise case and also lowering pin-power errors. Greater accuracy is achieved when assembly-level temperatures are used for geometry expansion, yielding only a 4 pcm eigenvalue difference and a 0.3\% RMS pin error. The results indicate that as the spatial resolution of expansion temperatures increases, both the eigenvalue and pin powers converge toward those of the pin-wise case.
 
@@ -129,7 +129,7 @@ This test problems attempts to quantify the effect of thermal expansion on the i
 
 In this study, the ITC measurement in the VERA benchmark was modeled for cases with and without TE. The reactor used in this benchmark is Watts Bar Unit 1, a Westinghouse PWR. The measured ITC was obtained during cycle 1, with all fresh fuel. The ITC was calculated using isothermal temperatures of 560 K and 570 K, with a boron concentration of 1291 ppm. 
 
-To ensure statistical reliability, the ITC mean and the corresponding standard deviations were obtained by performing five runs for each case, with random seeds for each run. This resulted in a total of 25 ITC samples, from which the mean and standard deviation were calculated. For each run, there were 14,500 cycles, of which 2,500 cycles were inactive, with $4\times10^4$ particle histories simulated for every cycle. The results are displayed and compared against measurement result in Table \ref{tab424}.
+To ensure statistical reliability, the ITC mean and the corresponding standard deviations were obtained by performing five runs for each case, with random seeds for each run. This resulted in a total of 25 ITC samples, from which the mean and standard deviation were calculated. For each run, there were 14,500 cycles, of which 2,500 cycles were inactive, with $4\times10^4$ particle histories simulated for every cycle.
 
 
 \begin{table}
@@ -148,7 +148,7 @@ To ensure statistical reliability, the ITC mean and the corresponding standard d
     % \end{adjustbox}
 \end{table}
 
-As indicated in the table, incorporating TE into core modeling improves the accuracy of the ITC, bringing it closer to the measured data. Additionally, the results show that TE modeling makes the ITC more positive by 0.4 pcm/$^{\circ}$F. This difference is slightly higher than the findings in Palmtag et al. \cite{palmtag}, which reported that TE modeling increases the ITC by 0.2-0.3 pcm/$^{\circ}$F.
+The results are displayed and compared against measurement result in Table \ref{tab424}. As indicated in the table, incorporating TE into core modeling improves the accuracy of the ITC, bringing it closer to the measured data. Additionally, the results show that TE modeling makes the ITC more positive by 0.4 pcm/$^{\circ}$F. This difference is slightly higher than the findings in Palmtag et al. \cite{palmtag}, which reported that TE modeling increases the ITC by 0.2-0.3 pcm/$^{\circ}$F.
 
 Although the ITC solutions for both the TE and No TE cases deviate significantly from the reported measured value, they are still comparable to the results of other MC calculations. For example, the ITC solution from KENO without TE is 3.18 pcm/$^{\circ}$F \cite{godfrey}.
 

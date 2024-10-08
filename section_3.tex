@@ -48,7 +48,7 @@ Note that these thermal expansion coefficients are similar to those described in
 
 \subsection{Thermal-hydraulics Coupling} \label{sec33a}
 
-MCS is a neutron/photon transport code that can be coupled with both TH1D \cite{ryu_2015} and COBRA-TF (CTF) \cite{salko}. TH1D is a simple one-dimensional, single closed-channel thermal-hydraulics (TH) solver that does not account for cross-flow, coolant vaporization, and pressure drop across the channel. In contrast, CTF is a more sophisticated TH solver that addresses these limitations in TH1D.
+MCS is a neutron/photon transport code that can be coupled with both TH1D \cite{ryu_2015} and CTF \cite{salko}. TH1D is a simple closed channel TH solver initially developed for nTracer TH solver. It solves mass and energy conservation equations in one-dimensional axial direction and does not consider phase change. While CTF is a more sophisticated TH solver that solves all the three conservation equations including the momentum equation, both for fluid and vapor phases, and in three dimensional directions. Also, CTF has a capability to model spacer grids, but the effects of spacer grids on the TH calculations were omitted in these simulations.
 
 Both TH1D and CTF are internally coupled with MCS, allowing data transfers between MCS and the TH solvers to occur automatically. Although the solvers must be compiled separately, they are linked through a static library. Linear power from MCS is transferred to the TH solvers, while TH parameters are updated by TH solvers and returned to MCS. These data transfers are performed at the pin-by-pin level.
 

@@ -64,7 +64,7 @@ In this work, however, we introduce a highly efficient method for constructing t
     R_n^m\left(r\right)=r\left[R_{n-1}^{\left|m-1\right|}\left(r\right)+R_{n-1}^{m+1}\left(r\right)\right]-R_{n-2}^m\left(r\right)\ .
     \label{eq7}
 \end{equation}
-In this way, the first few radial componenents of Zernike polynomials can be determined manually followed by the computation of the rest polynomials using using Eq. \ref{eq7}.
+In this way, $R_2^0$, $R_3^1$, and $R_n^m$ for $n=m$ can be determined manually, then followed by the computation of the rest polynomials using using Eq. \ref{eq7}.
 
 \begin{figure}
     \centering
@@ -106,21 +106,24 @@ Due to the continuous variation of material properties across the fuel pin, delt
 
 Delta-tracking, as described in \cite{leppanen_2017, woodcock}, uses a rejection sampling method that makes the total interaction probability uniform by introducing majorant cross sections. This allows for the uniform sampling of the distance to collision, given by:
 
-\[
+\begin{equation}
     s = -\frac{\ln{\left(\xi\right)}}{\Sigma_{maj}(E)},
-\]
+    \label{eq8}
+\end{equation}
 where \(\xi\) is a uniformly distributed random variable on the interval \([0,1]\), and \(\Sigma_{maj}(E)\) is the majorant cross section. In this study, to improve rejection sampling efficiency, the interaction probability is made uniform only within the delta-tracking region, which is typically defined at the assembly level. 
 
-To account for varying material properties, the interaction probability in each material is adjusted by introducing virtual collisions. These are rejected collisions based on the total cross section at the neutron’s collision site. In practice, this involves rejection sampling, where the collision is accepted as a physical collision with the probability:
+To preserve the physical nature of neutron tracking while allowing the neutron random walk to continue through multiple material regions, the interaction probability in each material is adjusted by introducing virtual collisions. These are rejected collisions based on the total cross section at the neutron's collision site. In practice, this involves rejection sampling, where the collision is only accepted as a physical collision with the probability:
 
-\[
+\begin{equation}
     p = \frac{\Sigma_t(\vec{r},E)}{\Sigma_{maj}(E)}.
-\]
+    \label{eq9}
+\end{equation}
 
-If the collision is rejected as virtual, a new distance to collision is sampled, and the process is repeated. Although the value of the majorant cross section can be chosen arbitrarily, setting it too high can reduce the efficiency of the rejection sampling procedure. Therefore, it is common practice to choose the majorant cross section as:
-\[
+If the probability $p$ obtained in Eq. \ref{eq9} is smaller than the newly sampled random number $\xi$, the collision is rejected as virtual. In this case, a new distance to collision is sampled using Eq. \ref{eq8}, and the neutron random walk is continued. Conversely, if $p \geq \xi$, the collision is accepted as a physical collision, where the actual neutron interaction is simulated and the tally is performed. Although the value of the majorant cross section can be chosen arbitrarily, setting it too high can reduce the efficiency of the rejection sampling procedure. Therefore, it is common practice to choose the majorant cross section as:
+\begin{equation}
     \Sigma_{maj}(E) = \max{\left[\Sigma_t(E)\right]}.
-\]
+    \label{eq10}
+\end{equation}
 This ensures that the rejection sampling remains efficient while maintaining the physical nature of the particle tracking.
 
 The delta-tracking has a drawback in geometries with significant material heterogeneity, where the total cross sections of different materials vary considerably \cite{leppanen_2010}. A common example is a LWR fuel assembly containing localized heavy absorbers, such as control rods or burnable absorber pins. In these cases, the absorber's cross section dominates the majorant at low energy, even though it occupies only a small portion of the total volume. This leads to a low probability of sampling a physical collision in regions outside the absorber. In subsection \ref{sec41}, the impact of localized high absorbers, commonly found in LWR problems, on the computation will be evaluated.
@@ -148,9 +151,9 @@ Numerical experiments suggest that the ideal number of MEBs is 1,200, distribute
 
 \subsection{Calculation Flow} \label{sec25}
 
-The simplified calculation flow of MC coupled multi-physics with spatially continuous material properties is illustrated in Figure \ref{fig_4}. The simulation begins with the evaluation of the majorant microscopic cross section, followed by the majorant macroscopic cross section. Particle delta-tracking in a continuous medium proceeds for several batches, during which FET coefficients are tallied using Eq. \ref{eq5}. After several cycles of particle transport, a thermal-hydraulics (TH) update is conducted. If necessary, updates on critical boron concentration (CBC) and Xenon distribution are also performed.
+The simplified calculation flow of MC coupled multi-physics with spatially continuous material properties is illustrated in Figure \ref{fig_4}. The simulation begins with the evaluation of the majorant microscopic cross section, followed by the majorant macroscopic cross section. Particle delta-tracking in a continuous medium proceeds for several cycles, during which FET coefficients are tallied using Eq. \ref{eq5}. After several cycles of particle transport, a thermal-hydraulics (TH) update is conducted. If necessary, updates on critical boron concentration (CBC) and Xenon distribution are also performed.
 
-During the TH update procedure, the two-dimensional power distribution is estimated using the truncated summation of Eq. \ref{eq1}, with the tallied coefficients obtained from previous cycles of particle tracking. This power distribution is then utilized by the TH solver to update the fuel, cladding, and coolant temperatures, as well as the coolant density. These updated values of two-dimensional fuel temperatures, and one-dimensional coolant and cladding temperatures, as well as coolant density, are stored for each fuel pin and serve as interpolation points during subsequent particle transport batches. If equilibrium Xenon feedback is active, a similar process is employed to reconstruct the two-dimensional Xenon distribution across the fuel pin.
+During the TH update procedure, the two-dimensional power distribution is estimated using the truncated summation of Eq. \ref{eq1}, with the tallied coefficients obtained from previous cycles of particle tracking. This power distribution is then utilized by the TH solver to update the fuel, cladding, and coolant temperatures, as well as the coolant density. These updated values of two-dimensional fuel temperatures, and one-dimensional coolant and cladding temperatures, as well as coolant density, are stored for each fuel pin and serve as interpolation points during subsequent particle transport cycles. If equilibrium Xenon feedback is active, a similar process is employed to reconstruct the two-dimensional Xenon distribution across the fuel pin.
 
 In previous work by Ellis \cite{ellis, ellis_2016}, functional expansion was used to represent the continuity of material properties, such as fuel temperature and coolant density. However, using interpolation instead of functional expansion to determine material properties at any point offers a key advantage: it requires fewer arithmetic operations than polynomial reconstruction, thus enhancing particle tracking efficiency.
 
