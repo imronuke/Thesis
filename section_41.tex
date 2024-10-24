@@ -52,13 +52,14 @@ The continuous fuel temperature from the FET case is compared to the piecewise f
     \label{fig_42}
 \end{figure}
 
-To verify that the $k_{inf}$ from the FET case asymptotically approaches the solution obtained with infinitesimal cell sizes, a quadratic extrapolation was conducted. This extrapolation uses Lagrange basis polynomials, with the variable defined as the inverse of the number of radial rings. The extrapolated $k_{inf}$ is shown in Table \ref{tab2}, and the extrapolation result is plotted in Figure \ref{fig_43}. As illustrated, the extrapolated $k_{inf}$ lies within the uncertainty range of the $k_{inf}$ value obtained from the FET case.
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{figs/k_inf.pdf}
-    \caption{Radial fuel temperature distribution for two-dimensional pin-cell problem.}
+    \caption{Extrapolated $k_{inf}$ for two-dimensional pin cell problem.}
     \label{fig_43}
 \end{figure}
+
+To verify that the $k_{inf}$ from the FET case asymptotically approaches the solution obtained with infinitesimal cell sizes, a quadratic extrapolation was conducted. This extrapolation uses Lagrange basis polynomials, with the variable defined as the inverse of the number of radial rings. The extrapolated $k_{inf}$ is shown in Table \ref{tab2}, and the extrapolation result is plotted in Figure \ref{fig_43}. As illustrated, the extrapolated $k_{inf}$ lies within the uncertainty range of the $k_{inf}$ value obtained from the FET case.
 
 These results demonstrate that the FET solutions asymptotically converge to those obtained from conventional cell-based discretized simulations with infinitesimally small cells. Furthermore, modeling radial temperature variations in the fuel pellet is essential for obtaining more accurate reactivity effects.
 
@@ -101,7 +102,7 @@ Table \ref{tab3} compares the CBC results from all cases, showing that the solut
 
 Figure \ref{fig_44} illustrates the radially averaged power, fuel temperature, and coolant density, which exhibit good agreement between cases. To further verify the accuracy of the FET case, a 100-bin axial mesh tally was performed in all cases, and percentage differences, along with one-sigma standard deviations, are presented in Figure \ref{fig_45}. As shown, the axial power differences and corresponding standard deviations between the FET and B2 cases are less than 0.5\%. These comparisons demonstrate the higher accuracy achievable with the proposed approach.
 
-In addition, Table \ref{tab3} demonstrates that, despite its greater accuracy, the FET case has the shortest runtime. It is 1.2 and 4.5 times faster than the B1 and B2 cases, respectively. This performance improvement primarily due to reduced number of cells, which optimizes delta-tracking in two key ways. First, with fewer particle crossings, material-wise macroscopic cross-sections are computed less frequently. Second, with fewer cells, the recursive routine for determining particle location is more efficient. For this reason, delta-tracking may not offer substantial benefits if the problem involves many cells. Moreover, in cases without neutron absorbers, such as burnable poisons or control rods, the rejection sampling for delta-tracking can be performed more efficiently.
+In addition, Table \ref{tab3} demonstrates that, despite its greater accuracy, the FET case has the shortest runtime. It is 1.2 and 4.5 times faster than the B1 and B2 cases, respectively. This performance improvement primarily due to reduced number of cells, which optimizes delta-tracking in two key ways. First, with fewer particle crossings, material-wise macroscopic cross-sections are computed less frequently. Second, with fewer cells, the recursive routine for determining particle location is more efficient. Moreover, in cases without localized neutron absorbers, such as burnable poisons or control rods, the rejection sampling for delta-tracking in the FET case can be performed more efficiently.
 
 \subsubsection{Three-dimensional Assembly Problem} \label{3d_asm}
 
@@ -135,9 +136,9 @@ Each case simulated $3 \times 10^4$ particle histories per cycle, with a total o
     \hline 
      Cases & \# of fuel pin radial/axial discretization & $k_{inf}$ & Relative wall-clock time \\
      \hline
-     C1     & 25/1  & $1.16404\pm0.00005$ & 1.2      \\ \hline
-     C1     & 50/2  & $1.16448\pm0.00004$ & 2.0      \\ \hline
-     C2     & 100/5 & $1.16459\pm0.00004$ & 5.0      \\ \hline
+     C1     & 25/1  & $1.16400\pm0.00004$ & 1.6      \\ \hline
+     C1     & 50/2  & $1.16443\pm0.00004$ & 2.3      \\ \hline
+     C2     & 100/5 & $1.16449\pm0.00005$ & 5.1      \\ \hline
      FET    & N/A   & $1.16465\pm0.00004$ & 1.0 $^\text{(a)}$      \\ \hline
     \end{tabular}
     % \end{adjustbox}
@@ -147,8 +148,6 @@ Each case simulated $3 \times 10^4$ particle histories per cycle, with a total o
     \end{flushleft}
 \end{table}
 
-The radial pin powers from the FET and C3 cases are presented in Figure \ref{fig_47}, demonstrating excellent agreement, with relative differences in pin powers being less than 0.2\% across all fuel pins. Additionally, for the assembly problem, the FET case ran 1.2, 2.0, and 5.0 times faster compared to cases C1, C2, and C3, respectively. As previously mentioned, this significant computational speedup is largely due to the absence of strong neutron absorbers. In the next subsection, the computational time speedup will be evaluated for assembly problems containing strong neutron absorbers.
-
 \begin{figure}
     \centering
     \includegraphics[width=0.95\textwidth]{figs/pin_powers.pdf}
@@ -156,15 +155,21 @@ The radial pin powers from the FET and C3 cases are presented in Figure \ref{fig
     \label{fig_47}
 \end{figure}
 
+The radial pin powers from the FET and C3 cases are presented in Figure \ref{fig_47}, demonstrating excellent agreement, with relative differences in pin powers being less than 0.2\% across all fuel pins. Additionally, for the assembly problem, the FET case ran 1.6, 2.3, and 5.1 times faster compared to cases C1, C2, and C3, respectively. As previously mentioned, this significant computational speedup is partly due to the absence of localized strong neutron absorbers. In the next subsection, the computational time speedup will be evaluated for assembly problems containing strong neutron absorbers.
+
 \subsubsection{Three-dimensional Assembly Problem with Neutron Absorbers}
 
-This test problem aims to evaluate the computational time speedup of the FET case for reactor problems with localized strong neutron absorbers. The presence of localized absorbers is expected to reduce the efficiency of rejection sampling in the delta-tracking method. The problem setup is identical to the assembly problem in subsection \ref{3d_asm}, with the exception that either Pyrex or control rods are inserted into the guide tubes.
+This test problem aims to evaluate the computational time speedup of the FET case for reactor problems with strong neutron absorbers. The presence of neutron absorbers is expected to reduce the efficiency of the rejection sampling in the delta-tracking method. The problem setup is identical to the assembly problem described in subsection \ref{3d_asm}, with the exception that either Pyrex or control rods are inserted into the guide tubes.
 
-The tip of the control rod is made of AIC, measuring 101.6 cm in length, while the remaining 259.05 cm is composed of boron carbide. In this problem, the control rod is inserted to 186 steps, meaning only the AIC portion is inserted into the active core.
+As previously described, the tip of the control rod is made from AIC, measuring 101.6 cm in length, while the remaining 259.05 cm is composed of boron carbide. In this problem, the control rod is inserted to a depth of 186 steps (where 1 step corresponds to 1.5875 cm), meaning only the AIC portion is inserted into the active core. This configuration makes the presence of the neutron absorber more localized, while the Pyrex burnable poisons occupy almost the entire active core axially.
+
+Table \ref{tab32} provides $k_{inf}$ solutions along with relative simulation times. As can be observed, the presence of Pyrex has little effect on the FET case speedup compared to problems without Pyrex, as shown in Table \ref{tab31}. This is because the presence of Pyrex is not localized, so the rejection sampling procedure in the delta-tracking can still be performed efficiently.
+
+In contrast, the presence of control rods is very localized, located in a small portion at the top of the active core. This leads to poor rejection sampling efficiency in the delta-tracking method. As seen in Table \ref{tab32}, the FET speedup compared to a 100/5 axial/radial discretization with control rods inserted at 186 steps is 2.6. This speedup is much smaller than for problems without the control rods inserted, which is around 5.1, as observed in Table \ref{tab31}. The $k_{inf}$ solutions generally follow the same trend as in previous problems, where they converge to the FET case solutions for infinitesimal cells.
 
 \begin{table}
     \centering
-    \caption{Calculation results for three-dimensional assembly problem with strong neutron absorbers.}
+    \caption{Calculation results for three-dimensional assembly problem with neutron absorbers.}
     \label{tab32} 
     % \begin{adjustbox}{width=\textwidth} % Adjust your table to the text width
     \begin{tabular}{| c | C{0.16\linewidth} | c | C{0.12\linewidth} | c | C{0.12\linewidth} | }
@@ -174,8 +179,8 @@ The tip of the control rod is made of AIC, measuring 101.6 cm in length, while t
     Cases & \# of fuel pin radial/axial discretization & $k_{inf}$ & Relative wall-clock time & $k_{inf}$ & Relative wall-clock time \\
     \hline
     D1     & 25/1  & $0.95876\pm0.00004$ & 1.5  & $1.15972\pm0.00004$ & 0.8     \\ \hline
-    D1     & 50/2  & $0.95903\pm0.00004$ & 1.7  & $1.16020\pm0.00004$ & 2.6     \\ \hline
-    D2     & 100/5 & $0.95918\pm0.00004$ & 4.3  & $1.16040\pm0.00004$ & 7.4     \\ \hline
+    D1     & 50/2  & $0.95909\pm0.00004$ & 2.1  & $1.16007\pm0.00004$ & 1.1     \\ \hline
+    D2     & 100/5 & $0.95918\pm0.00004$ & 4.7  & $1.16027\pm0.00004$ & 2.6     \\ \hline
     FET    & N/A   & $0.95929\pm0.00004$ & 1.0 $^\text{(a)}$  & $1.16047\pm0.00004$ & 1.0 $^\text{(b)}$      \\ \hline
     \end{tabular}
     % \end{adjustbox}

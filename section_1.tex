@@ -49,7 +49,7 @@ Another noteworthy study on reactor simulations with thermal expansion modeling 
 
 \subsection{Scope and Objectives}
 
-The objective of this thesis is to present a framework that enhances the fidelity of typical MC coupled multi-physics simulations for LWRs, through two key improvements. First, the introduction of multi-physics simulations with spatially continuous material properties \cite{imron_2024} to address the spatial resolution issue discussed earlier. Second, the incorporation of thermal expansion of reactor core components during MC particle tracking.
+The objective of this thesis is to present a framework that enhances the fidelity of typical MC coupled multi-physics simulations for LWRs, through two key improvements. First, the introduction of multi-physics simulations with spatially continuous material properties \cite{imron_2024} to address the spatial resolution issue discussed earlier. Second, the incorporation of on-the-fly thermal expansion of reactor core components during MC particle tracking.
 
 MC coupled multi-physics simulations with spatially continuous material properties are achieved using FET in combination with delta-tracking. By using delta-tracking instead of CVMT, the complexity of neutron path integration during particle tracking is eliminated. The proposed method is non-intrusive to the thermal-hydraulic (TH) solver, meaning no modifications are required to the TH solver module. This work also adopts an efficient approach from \cite{honarvar} for constructing Zernike polynomials, marking the first use of this method in the application of FET for reactor core simulations.
 

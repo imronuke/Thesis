@@ -11,10 +11,10 @@ In the FET methodology \cite{gries, ellis}, the actual power shape solution is a
     \label{eq1}
 \end{equation}
 \begin{equation}
-    {\bar{a}}_n=\left\langle f,\psi_n\right\rangle=\int_{\Gamma}{f\left(\vec{\xi}\right)\psi_n\left(\vec{\xi}\right)\rho\left(\vec{\xi}\right)d\vec{\xi}\ .}
+    {\bar{a}}_n=\left\langle f,\psi_n\right\rangle=\int_{\Gamma}{f\left(\vec{\xi}\right)\psi_n\left(\vec{\xi}\right)\rho\left(\vec{\xi}\right)d\vec{\xi}\ }.
     \label{eq2}
 \end{equation}
-Here, ${\bar{a}}_n$ represents the expansion coefficients, $\vec{\xi}$ denotes the neutron phase space comprising $\left(\vec{r},\vec{\mathrm{\Omega}},E\right)$, and $k_n$ is the normalization constant, which can be determined based on the chosen polynomial basis set that can be expressed as:
+Here, ${\bar{a}}_n$ represents the expansion coefficients, $\vec{\xi}$ denotes the neutron phase space comprising $\left(\vec{r},\hat{\mathrm{\Omega}},E\right)$, and $k_n$ is the normalization constant, which can be determined based on the chosen polynomial basis set that can be expressed as:
 \begin{equation}
     k_n=\frac{1}{||\psi_n||^2},
 \end{equation}
@@ -104,7 +104,7 @@ Variance estimation is an integral part in the MC simulations, as lower variance
 
 Due to the continuous variation of material properties across the fuel pin, delta-tracking is employed as an alternative to conventional surface-tracking. The delta-tracking method differs from conventional surface-to-surface ray-tracing in that it allows the neutron random walk to continue through multiple material regions without terminating the particle track at each boundary surface.
 
-Delta-tracking, as described in \cite{leppanen_2017, woodcock}, uses a rejection sampling method that makes the total interaction probability uniform by introducing majorant cross sections. This allows for the uniform sampling of the distance to collision, given by:
+Delta-tracking, as described in \cite{leppanen_2017, woodcock}, makes the total interaction probability uniform in all materials by introducing majorant cross sections. This allows for the uniform sampling of the distance to collision, given by:
 
 \begin{equation}
     s = -\frac{\ln{\left(\xi\right)}}{\Sigma_{maj}(E)},
@@ -112,7 +112,7 @@ Delta-tracking, as described in \cite{leppanen_2017, woodcock}, uses a rejection
 \end{equation}
 where \(\xi\) is a uniformly distributed random variable on the interval \([0,1]\), and \(\Sigma_{maj}(E)\) is the majorant cross section. In this study, to improve rejection sampling efficiency, the interaction probability is made uniform only within the delta-tracking region, which is typically defined at the assembly level. 
 
-To preserve the physical nature of neutron tracking while allowing the neutron random walk to continue through multiple material regions, the interaction probability in each material is adjusted by introducing virtual collisions. These are rejected collisions based on the total cross section at the neutron's collision site. In practice, this involves rejection sampling, where the collision is only accepted as a physical collision with the probability:
+To preserve the physical nature of neutron transport while allowing the neutron random walk to continue through multiple material regions, the interaction probability in each material is adjusted by introducing virtual collisions. These are rejected collisions based on the total cross section at the neutron's collision site. In practice, this involves rejection sampling, where the collision is only accepted as a physical collision with the probability:
 
 \begin{equation}
     p = \frac{\Sigma_t(\vec{r},E)}{\Sigma_{maj}(E)}.
@@ -121,7 +121,7 @@ To preserve the physical nature of neutron tracking while allowing the neutron r
 
 If the probability $p$ obtained in Eq. \ref{eq9} is smaller than the newly sampled random number $\xi$, the collision is rejected as virtual. In this case, a new distance to collision is sampled using Eq. \ref{eq8}, and the neutron random walk is continued. Conversely, if $p \geq \xi$, the collision is accepted as a physical collision, where the actual neutron interaction is simulated and the tally is performed. Although the value of the majorant cross section can be chosen arbitrarily, setting it too high can reduce the efficiency of the rejection sampling procedure. Therefore, it is common practice to choose the majorant cross section as:
 \begin{equation}
-    \Sigma_{maj}(E) = \max{\left[\Sigma_t(E)\right]}.
+    \Sigma_{maj}(E) = \max{\left[\Sigma_t(\vec{r},E)\right]}.
     \label{eq10}
 \end{equation}
 This ensures that the rejection sampling remains efficient while maintaining the physical nature of the particle tracking.
