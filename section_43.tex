@@ -1,4 +1,51 @@
-% \subsection{Combined Framework} \label{sec43}
-% \subsubsection{Assembly Problem}
-% \subsubsection{Whole-core Reactor Problem}
-%\subsubsection{Whole-core Reactor Depletion using Restart Calculations}
+\subsection{Combined Framework} \label{sec43}
+
+In the preceding subsections, the multi-physics simulations with spatially continuous material and thermal expansion (TE) were tested individually. In this final subsection, the solutions to reactor multi-physics problems using combined spatially continuous material and thermal expansion methods will be presented and discussed. Two problems, assembly and whole-core multi-physics reactor problems, will be used to verify the implementation of combined framework. The calculation parameters employed for these problems are similar to those used in previous reactor problems.
+
+\subsubsection{Assembly Problem}
+
+This problem is identical to the assembly problem in subsection \ref{3d_asm}, with similar modeling in MCS, except that thermal expansion is also modeled. Additionally, four cases have been developed in this problem, similar to those in subsection \ref{3d_asm}. This problem has 1300 ppm of boric acid diluted in the coolant.
+
+Table \ref{tab431} presents the solutions for all cases, both with and without thermal expansion. It can be observed that, as in the previous problems, the solutions from cell-based cases converge to those from the FET cases. Moreover, due to the high concentration of boron diluted in the coolant, thermal expansion modeling reduces the $k_{inf}$, thereby countering the effects of spatially continuous material modeling.
+
+It is important to note that the $k_{inf}$ solution from MCS with thermal expansion modeling is very close to the solution from VERA-CS \cite{sieger}, which is 1.16361. This corresponds to a 17 pcm difference compared to the FET case, or a 7 pcm difference compared to the F2 case with 100/5 discretization. These solutions demonstrate the implementation of multi-physics simulations that incorporate spatially continuous material properties and thermal expansion.
+
+\begin{table}[b!]
+    \centering
+    \caption{Calculation results for the assembly problem using combined framework.}
+    \label{tab431} 
+    \begin{tabular}{| c | c | c | c | }
+    \hline 
+       &   & \multicolumn{2}{c|}{$k_{inf}$}       \\
+    \cline{3-4}
+     Cases & \# of fuel pin radial/axial discretization & No TE & TE \\
+     \hline
+     F1     & 25/1  & $1.16400\pm0.00004$ & $1.16321\pm0.00004$      \\ \hline
+     F1     & 50/2  & $1.16443\pm0.00004$ & $1.16350\pm0.00004$      \\ \hline
+     F2     & 100/5 & $1.16449\pm0.00005$ & $1.16368\pm0.00005$      \\ \hline
+     FET    & N/A   & $1.16465\pm0.00004$ & $1.16378\pm0.00004$      \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{Whole-core Reactor Problem}
+
+This whole-core problem is similar to that in subsection \label{wc}. However, instead of estimating the critical boron concentration, this problem calculates the reactor eigenvalue. Additionally, the boron concentration is set to zero to more clearly observe the effects of thermal expansion. All other modeling parameters are the same as those described in subsection \label{wc}.
+
+Table \ref{tab432} compiles all 
+
+\begin{table}
+    \centering
+    \caption{Calculation results for the whole-core problem using combined framework.}
+    \label{tab432} 
+    \begin{tabular}{| c | c | c | c | }
+    \hline 
+       &   & \multicolumn{2}{c|}{$k_{inf}$}       \\
+    \cline{3-4}
+     Cases & \# of fuel pin radial/axial discretization & No TE & TE \\
+     \hline
+     G1     & 25/1  & $1.16400\pm0.00004$ & $1.16321\pm0.00004$      \\ \hline
+     G1     & 50/2  & $1.16443\pm0.00004$ & $1.16350\pm0.00004$      \\ \hline
+     G2     & 60/5  & $1.16449\pm0.00005$ & $1.16368\pm0.00005$      \\ \hline
+     FET    & N/A   & $1.16465\pm0.00004$ & $1.16378\pm0.00004$      \\ \hline
+    \end{tabular}
+\end{table}

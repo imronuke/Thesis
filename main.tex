@@ -41,6 +41,9 @@
 \usepackage{array}
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
+% \usepackage{geometry}
+\usepackage{hhline}
+
 \renewcommand{\cftfigpresnum}{\figurename\enspace}
 \renewcommand{\cfttabpresnum}{\tablename\enspace}
 \renewcommand{\cftfigaftersnum}{:}
@@ -67,6 +70,7 @@
 \newcommand{\qed}{\hfill\blacksquare}
 \renewcommand{\bibname}{\hfill\bfseries\Large References \hfill\hfill}
 \renewcommand{\abstractname}{\bfseries\Large Abstract \hfill\hfill}
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
 
 \captionsetup{figurename=Figure,labelsep=period}
 \captionsetup{tablename=Table,labelsep=period}
@@ -98,7 +102,7 @@
 %\pagenumbering{gobble}
 
 \begin{document}
-
+\pagenumbering{gobble}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%    Do not touch the above 70 lines     %%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -177,7 +181,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %			ABSTRACT
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\include{abstract.tex}
+\input{abstract.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %%%%%%%%%%    Do not touch the below 20 lines 
@@ -205,6 +209,7 @@
 \clearpage
 
 %%% reset page numbering
+\pagenumbering{arabic}
 \setcounter{page}{1}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %%%%%%%%%%    Do not touch the above 20 lines 

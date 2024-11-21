@@ -29,7 +29,7 @@ Three cases are presented in this problem, as outlined in Table \ref{tab2}. Each
     % \end{adjustbox}
 \end{table}
 
-The continuous fuel temperature from the FET case is compared to the piecewise fuel temperature from the other cases in Figure \ref{fig_41}. As shown, the continuous temperature from the FET case closely aligns with the piecewise fuel temperature as the mesh refinement increases. For a direct comparison, radial tallies of absorption and fission rates across 20 meshes were conducted during the simulation, with the results displayed in Figure \ref{fig_42}. The figure demonstrates that the proposed framework yields more accurate solutions as the mesh size decreases. The differences in absorption rates between cases A2 and A3 and the FET case are less than 1.0\%, while the A1 case overestimates the self-shielding absorption at the fuel pellet's periphery by up to 2.6\%, due to the higher peripheral fuel temperature in the A1 case. In contrast, the fission rate remains relatively uniform with no significant differences, as thermal neutrons, responsible for fission, are less affected by self-shielding. The combination of higher resonance absorption at the fuel pellet periphery and a relatively flat fission rate distribution results in a lower infinite multiplication factor ($k_{inf}$), as observed in the A1 case (see Table \ref{tab2}).
+The continuous fuel temperature from the FET case is compared to the piecewise fuel temperature from the other cases in Figure \ref{fig_41}. As shown, the continuous temperature from the FET case closely aligns with the piecewise fuel temperature as the mesh refinement increases. For a direct comparison, radial mesh tallies for absorption and fission rates across 20 meshes were conducted during the simulation, with the results displayed in Figure \ref{fig_42}. The figure demonstrates that the proposed framework yields increasingly accurate solutions as the mesh size decreases, which confirms the correct implementation of the framework into the MCS code. The differences in absorption rates between cases A2 and A3 and the FET case are less than 1.0\%, while the A1 case overestimates the self-shielding absorption at the fuel pellet's periphery by up to 2.6\%, due to the higher peripheral fuel temperature in the A1 case. In contrast, the fission rate remains relatively uniform with no significant differences, as thermal neutrons that responsible for fission are less affected by self-shielding. The combination of higher resonance absorption at the fuel pellet periphery and a relatively flat fission rate distribution results in a lower infinite multiplication factor ($k_{inf}$), as observed in the A1 case (see Table \ref{tab2}).
 
 \begin{figure}
       \centering
@@ -100,13 +100,13 @@ Table \ref{tab3} compares the CBC results from all cases, showing that the solut
     \label{fig_45}
 \end{figure}
 
-Figure \ref{fig_44} illustrates the radially averaged power, fuel temperature, and coolant density, which exhibit good agreement between cases. To further verify the accuracy of the FET case, a 100-bin axial mesh tally was performed in all cases, and percentage differences, along with one-sigma standard deviations, are presented in Figure \ref{fig_45}. As shown, the axial power differences and corresponding standard deviations between the FET and B2 cases are less than 0.5\%. These comparisons demonstrate the higher accuracy achievable with the proposed approach.
+Figure \ref{fig_44} illustrates the radially-averaged power, fuel temperature, and coolant density, which exhibit good agreement between cases. To further verify the accuracy of the FET case, a 100-bin axial mesh tally was performed in all cases, and percentage differences, along with one-sigma standard deviations, are presented in Figure \ref{fig_45}. As shown, the axial power differences and corresponding standard deviations between the FET and B2 cases are less than 0.5\%. These comparisons demonstrate the higher accuracy achievable with the proposed approach.
 
 In addition, Table \ref{tab3} demonstrates that, despite its greater accuracy, the FET case has the shortest runtime. It is 1.2 and 4.5 times faster than the B1 and B2 cases, respectively. This performance improvement primarily due to reduced number of cells, which optimizes delta-tracking in two key ways. First, with fewer particle crossings, material-wise macroscopic cross-sections are computed less frequently. Second, with fewer cells, the recursive routine for determining particle location is more efficient. Moreover, in cases without localized neutron absorbers, such as burnable poisons or control rods, the rejection sampling for delta-tracking in the FET case can be performed more efficiently.
 
 \subsubsection{Three-dimensional Assembly Problem} \label{3d_asm}
 
-This three-dimensional assembly problem is identical to Problem \#6 from the VERA benchmark (Godfrey, 2013), using 3.1 wt.\% enriched fuel pellets. This problem is simulated at hot full power (HFP), equivalent to 17.67 MW of thermal power. Unlike previous problem cases, this problem includes non-fuel structural materials such as the pin plenum, nozzles, core plates, and axial reflectors. Figure \ref{fig_46} illustrates the three-dimensional assembly problem.
+This three-dimensional assembly problem is identical to Problem \#6 from the VERA benchmark (Godfrey, 2013), using 3.1 wt.\% enriched fuel pellets. This problem is simulated at hot full power (HFP), equivalent to 17.67 MW of thermal power, with 1300 ppm of boric acid diluted in the coolant. Unlike previous problem cases, this problem includes non-fuel structural materials such as the pin plenum, nozzles, core plates, and axial reflectors. Figure \ref{fig_46} illustrates the three-dimensional assembly problem.
 
 \begin{figure}
     \centering
@@ -123,7 +123,7 @@ This three-dimensional assembly problem is identical to Problem \#6 from the VER
     \label{fig_46}
 \end{figure}
 
-Four cases were developed for comparison with the proposed framework. The first three cases, C1, C2, and C3, are traditional cell-based models where the problem domain is discretized into multiple cells. In case C1, the problem is divided into 25 equidistant axial cells without radial discretization. Case C2 refines this by using 50 equidistant axial cells and 5 equivolume radial rings in the fuel pellet to capture the temperature distribution within the pellet both radially and axially. Case C3 further increases the refinement to 100 axial cells and 5 radial rings. While FET case employs spatially continuous material properties.
+Four cases were developed for comparison with the proposed framework. The first three cases, C1, C2, and C3, are traditional cell-based models where the problem domain is discretized into multiple cells. In case C1, the problem is divided into 25 equidistant axial cells without radial discretization. Case C2 refines this by using 50 equidistant axial cells and 2 equivolume radial rings in the fuel pellet to capture the temperature distribution within the pellet both radially and axially. Case C3 further increases the refinement to 100 equidistant axial cells and 5 equivolume radial rings. While FET case employs spatially continuous material properties.
 
 Each case simulated $3 \times 10^4$ particle histories per cycle, with a total of 12,500 cycles, of which 2,500 were designated as active cycles. The eigenvalue comparisons are shown in Table \ref{tab31}. As with the previous test problems, as the cell sizes become infinitesimal, the eigenvalue increases and asymptotically approaches the value from the FET case. The FET eigenvalue was also independently compared against the MC21/CTF solution \cite{kelly_2017}, with the MC21/CTF eigenvalue being approximately 40 pcm lower than the FET value.
 
@@ -165,11 +165,11 @@ As previously described, the tip of the control rod is made from AIC, measuring 
 
 Table \ref{tab32} provides $k_{inf}$ solutions along with relative simulation times. As can be observed, the presence of Pyrex has little effect on the FET case speedup compared to problems without Pyrex, as shown in Table \ref{tab31}. This is because the presence of Pyrex is not localized, so the rejection sampling procedure in the delta-tracking can still be performed efficiently.
 
-In contrast, the presence of control rods is very localized, located in a small portion at the top of the active core. This leads to poor rejection sampling efficiency in the delta-tracking method. As seen in Table \ref{tab32}, the FET speedup compared to a 100/5 axial/radial discretization with control rods inserted at 186 steps is 2.6. This speedup is much smaller than for problems without the control rods inserted, which is around 5.1, as observed in Table \ref{tab31}. The $k_{inf}$ solutions generally follow the same trend as in previous problems, where they converge to the FET case solutions for infinitesimal cells.
+In contrast, the presence of control rods is very localized, located in a small portion at the top of the active core. This leads to poor rejection sampling efficiency in the delta-tracking method. As seen in Table \ref{tab32}, the FET speedup compared to a 100/5 axial/radial discretization with control rods inserted at 186 steps is 2.6 times. This speedup is much smaller than for problems without the control rods inserted, which is around 5.1 times, as observed in Table \ref{tab31}. The $k_{inf}$ solutions generally follow the same trend as in previous problems, where they converge to the FET case solutions for infinitesimal cells.
 
 \begin{table}
     \centering
-    \caption{Calculation results for three-dimensional assembly problem with neutron absorbers.}
+    \caption[Calculation results for assembly problem with neutron absorbers.]{Calculation results for three-dimensional assembly problem with neutron absorbers.}
     \label{tab32} 
     % \begin{adjustbox}{width=\textwidth} % Adjust your table to the text width
     \begin{tabular}{| c | C{0.16\linewidth} | c | C{0.12\linewidth} | c | C{0.12\linewidth} | }
@@ -192,11 +192,30 @@ In contrast, the presence of control rods is very localized, located in a small 
 \end{table}
 
 
-\subsubsection{Whole-core Reactor Problem}
+\subsubsection{Whole-core Reactor Problem} \label{wc}
 
-The final test problem for the spatially continuous material properties problems is the core problem, which is identical to Problem \#7 of the VERA benchmark: a three-dimensional beginning-of-cycle (BOC) physical reactor. This benchmark provides detailed reactor core geometry and internal reactor structures. This test problem estimates the CBC at HFP.
+The final test problem for the spatially continuous material properties is a whole-core problem, based on Problem \#7 of the VERA benchmark: a three-dimensional, beginning-of-cycle (BOC) physical reactor. This benchmark provides detailed descriptions of the reactor core geometry and internal structures. Figure \ref{fig_4a} illustrates the detailed whole-core reactor geometry modeling of the VERA benchmark in MCS. This test problem estimates the CBC at HFP.
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.55\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/xy_wb.pdf}
+        \caption{Radial view}
+    \end{subfigure}
+    \hspace{10em}
+    \begin{subfigure}[b]{0.36\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/xz_wb.pdf}
+        \caption{Axial view}
+    \end{subfigure}
+    \caption{Detailed whole-core reactor geometry modelling in MCS.}
+       \label{fig_4a}
+\end{figure}
 
 As with the previous test problems, several cases were developed to compare the spatially continuous material approach with the cell-based approach. These cases, along with descriptions of the cell discretizations, are listed in Table \ref{tab33}. Note that all simulations utilized \(6 \times 10^4\) particles per cycle, over a total of 37,500 cycles, with 30,000 cycles designated as active. This number of particle of histories produces axially averaged pin-power densities with maximum standard deviation around 0.6\%. In this problem, the reactor is modelled in a quarter core.
+
+In the MCS modeling for the FET case, each fuel assembly has different delta-tracking region, with each assembly having its own majorant cross-section. Therefore, when a particle crosses an assembly surface, the particle track must be terminated. Subsequently, a new sampling of the distance to collision must be calculated using a different majorant cross-section. Additionally, the withdrawn RCCAs are excluded from the delta-tracking region to optimize the rejection sampling procedure. As previously demonstrated, the presence of localized strong neutron absorbers can significantly reduce the efficiency of rejection sampling. Therefore, to improve performance, the withdrawn RCCAs are not included in the delta-tracking region in the FET case.
 
 The CBC results are presented in Table \ref{tab33}. As shown in the table, the behavior of the solutions is similar to those from the previous problems, where the CBC from the cell-based converges to that from the FET case using spatially continuous material properties. The CBC difference, compared to the E1 case with 25/1 radial/axial cell discretizations, is around 7 ppm, corresponding to approximately 70 pcm of reactivity. This result is consistent with previous solutions. Moreover, the FET case only requires one-third of the simulation time to achieve similar or even better accuracy compared to the E2 case with 60/5 radial/axial cell discretizations.
 

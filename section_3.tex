@@ -48,12 +48,25 @@ Note that these thermal expansion coefficients are similar to those described in
 
 \subsection{Thermal-hydraulics Coupling} \label{sec33a}
 
-MCS is a neutron/photon transport code that can be coupled with both TH1D \cite{ryu_2015} and CTF \cite{salko}. TH1D is a simple closed channel TH solver initially developed for nTracer TH solver. It solves mass and energy conservation equations in one-dimensional axial direction and does not consider phase change. While CTF is a more sophisticated TH solver that solves all the three conservation equations including the momentum equation, both for fluid and vapor phases, and in three dimensional directions. Also, CTF has a capability to model spacer grids, but the effects of spacer grids on the TH calculations were omitted in these simulations.
+MCS is a neutron/photon transport code that can be coupled with both TH1D \cite{ryu_2015} and CTF \cite{salko}. TH1D is a simple closed channel TH solver initially developed for nTracer TH solver. It solves mass and energy conservation equations in one-dimensional axial direction and does not consider phase change. While CTF is a more sophisticated TH solver that solves all the three conservation equations including the momentum equation, both for fluid and vapor phases, and in three dimensional directions. Also, CTF has a capability to model spacer grids, but the effects of spacer grids on the TH calculations were omitted in this study.
 
 Both TH1D and CTF are internally coupled with MCS, allowing data transfers between MCS and the TH solvers to occur automatically. Although the solvers must be compiled separately, they are linked through a static library. Linear power from MCS is transferred to the TH solvers, while TH parameters are updated by TH solvers and returned to MCS. These data transfers are performed at the pin-by-pin level.
 
-Since data transfers are performed at the pin-by-pin level, MCS multi-physics coupling always uses a single pin cell as the channel for TH coupling. For example, in a single fuel assembly with a $17\times17$ configuration, including 24 guide tubes and one instrumentation tube, a total of 264 channels are modeled for TH coupling.
-The reactor's TH parameters are updated regularly after several cycles of MCS particle tracking. During MCS particle tracking, fission power is tallied in both inactive and active cycles. In inactive cycles, the power tally is not accumulated, meaning that the tally from the last TH update is discarded. In contrast, during active cycles, when both the fission source and TH parameters have converged, the fission power tally is accumulated. The fission power is tallied for each cell in the fuel pellets and then converted into linear powers. These linear powers are passed to the TH solvers to update the reactor's TH parameters, such as fuel, cladding, and coolant temperatures, as well as coolant densities. These TH parameters are then used to update the nuclide cross sections in the MCS code for subsequent cycles of neutron transport until the next TH update. These procedures are repeated until all cycles are completed.
+Since data transfers are performed at the pin-by-pin level, MCS multi-physics coupling always uses a single pin cell as the channel for TH coupling. For example, in a single fuel assembly with a $17\times17$ configuration, including 24 guide tubes and one instrumentation tube, a total of 264 channels are modeled for TH coupling. The reactor's TH parameters are updated regularly after several cycles of MCS particle tracking. During MCS particle tracking, fission power is tallied in both inactive and active cycles. In inactive cycles, the power tally is not accumulated, meaning that the tally from the last TH update is discarded. In contrast, during active cycles, when both the fission source and TH parameters have converged, the fission power tally is accumulated.
+
+The fission power is tallied for each cell in the fuel pellets and then converted into linear powers. These linear powers are passed to the TH solvers to update the reactor's TH parameters, such as fuel, cladding, and coolant temperatures, as well as coolant densities. These TH parameters are then used to update the nuclide cross sections in the MCS code for subsequent cycles of neutron transport until the next TH update. These procedures are repeated until all cycles are completed. The detailed flow chart of these iterative methods is shown in Figures \ref{fig_30a} and \ref{fig_30b} for MCS-TH1D and MCS-CTF coupling, respectively.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/mcs_th1d.png}
+    \caption[Flow chart of MCS-TH1D coupling interface.]{Flow chart of MCS-TH1D coupling interface. Adapted from \cite{yu_2018}}
+    \label{fig_30a}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{figs/mcs_ctf.png}
+    \caption[Flow chart of MCS-CTF coupling interface.]{Flow chart of MCS-CTF coupling interface. Adapted from \cite{yu_2018}}
+    \label{fig_30b}
+\end{figure}
 
 
 \subsection{On-the-fly Thermal Expansion} \label{sec33}
@@ -62,7 +75,7 @@ Many MC codes, such as MCS, use Constructive Solid Geometry (CSG) to define the 
 
 To address this problem, on-the-fly thermal expansion is introduced. In this approach, when a particle enters a particular pin, the geometry of fuel pellet and cladding in that fuel pin are expanded using the corresponding local temperatures, which can be either pin-averaged or assembly-averaged temperatures. Similarly, the pin and assembly pitches where the particle is located are also expanded according to the assembly-averaged and core-averaged temperatures, respectively. In both the pin-averaged and assembly-averaged temperature cases, the average temperatures are calculated in both the axial and radial directions using volume-weighted averaging.
 
-In the implementation in MCS, the fuel pellet expanded both in radial and axial directions, while the cladding is expanded only in the radial direction, with the inner and outer radius assumed to expand equally. It should be noted that geometry deformation is assumed to be uniform both radially and axially, which implies that fuel cladding ballooning is not considered. These expansions are illustrated in \ref{fig_31}.
+In the implementation in MCS, the fuel pellet expanded both in radial and axial directions, while the cladding is expanded only in the radial direction, with the inner and outer radius assumed to expand equally. It should be noted that geometry deformation is assumed to be uniform both radially and axially, which implies that, for instance, fuel cladding ballooning is not considered. These expansions are illustrated in Figure \ref{fig_31}.
 
 \begin{figure}
     \centering
