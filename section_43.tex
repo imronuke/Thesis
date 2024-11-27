@@ -1,16 +1,18 @@
 \subsection{Combined Framework} \label{sec43}
 
-In the preceding subsections, the multi-physics simulations with spatially continuous material and thermal expansion (TE) were tested individually. In this final subsection, the solutions to reactor multi-physics problems using combined spatially continuous material and thermal expansion methods will be presented and discussed. Two problems, assembly and whole-core multi-physics reactor problems, will be used to verify the implementation of combined framework. The calculation parameters employed for these problems are similar to those used in previous reactor problems.
+In the preceding subsections, the multi-physics simulations with spatially continuous material and thermal expansion (TE) were tested individually. In this final subsection, the solutions to reactor multi-physics problems using combined spatially continuous material and thermal expansion methods will be presented and discussed. Two problems, assembly and whole-core multi-physics reactor problems, will be used to verify the implementation of combined framework.
+
+The use of functional expansion tally (FET) in multi-physics simulations with spatially continuous material properties presents several challenges when combined with thermal expansion. Thermal expansion causes the fuel pellet radius and length to change during particle transport. Since FET also needs this information, the FET geometry information must be modified accordingly. Furthermore, during FET tally reconstruction, these geometric changes in the fuel pellet must also be considered to ensure accurate tally reproduction.
 
 \subsubsection{Assembly Problem}
 
-This problem is identical to the assembly problem in subsection \ref{3d_asm}, with similar modeling in MCS, except that thermal expansion is also modeled. Additionally, four cases have been developed in this problem, similar to those in subsection \ref{3d_asm}. This problem has 1300 ppm of boric acid diluted in the coolant.
+This problem is identical to the assembly problem in subsection \ref{3d_asm}, with similar modeling in MCS, except that thermal expansion is also modeled. Additionally, four cases have been developed in this problem, similar to those in subsection \ref{3d_asm}. This problem has 1300 ppm of boric acid diluted in the coolant. The calculation parameters employed for this problem are similar to those used in the previous assembly problem.
 
-Table \ref{tab431} presents the solutions for all cases, both with and without thermal expansion. It can be observed that, as in the previous problems, the solutions from cell-based cases converge to those from the FET cases. Moreover, due to the high concentration of boron diluted in the coolant, thermal expansion modeling reduces the $k_{inf}$, thereby countering the effects of spatially continuous material modeling.
+Table \ref{tab431} presents the solutions for all cases, both with and without thermal expansion. It can be observed that, as in the previous problems, the solutions from cell-based cases converge to those from the FET cases as the cells become smaller. Moreover, due to the high concentration of boron diluted in the coolant, thermal expansion modeling reduces the $k_{inf}$, thereby countering the effects of spatially continuous material modeling.
 
-It is important to note that the $k_{inf}$ solution from MCS with thermal expansion modeling is very close to the solution from VERA-CS \cite{sieger}, which is 1.16361. This corresponds to a 17 pcm difference compared to the FET case, or a 7 pcm difference compared to the F2 case with 100/5 discretization. These solutions demonstrate the implementation of multi-physics simulations that incorporate spatially continuous material properties and thermal expansion.
+It is important to note that the $k_{inf}$ solution from MCS with thermal expansion modeling is very close to the solution from VERA-CS \cite{sieger}, which also modelled thermal expansion. The $k_{inf}$ from VERA-CS is 1.16361. This corresponds to a 17 pcm difference compared to the FET case, or a 7 pcm difference compared to the F2 case with 100/5 discretization. These solutions demonstrate that the implementation of multi-physics simulations, which incorporate spatially continuous material properties and thermal expansion, is correct.
 
-\begin{table}[b!]
+\begin{table}
     \centering
     \caption{Calculation results for the assembly problem using combined framework.}
     \label{tab431} 
@@ -18,7 +20,7 @@ It is important to note that the $k_{inf}$ solution from MCS with thermal expans
     \hline 
        &   & \multicolumn{2}{c|}{$k_{inf}$}       \\
     \cline{3-4}
-     Cases & \# of fuel pin radial/axial discretization & No TE & TE \\
+     Cases & \# of fuel pellet axial/radial discretization & No TE & TE \\
      \hline
      F1     & 25/1  & $1.16400\pm0.00004$ & $1.16321\pm0.00004$      \\ \hline
      F1     & 50/2  & $1.16443\pm0.00004$ & $1.16350\pm0.00004$      \\ \hline
@@ -29,9 +31,26 @@ It is important to note that the $k_{inf}$ solution from MCS with thermal expans
 
 \subsubsection{Whole-core Reactor Problem}
 
-This whole-core problem is similar to that in subsection \label{wc}. However, instead of estimating the critical boron concentration, this problem calculates the reactor eigenvalue. Additionally, the boron concentration is set to zero to more clearly observe the effects of thermal expansion. All other modeling parameters are the same as those described in subsection \label{wc}.
+This whole-core problem is similar to the one described in subsection \ref{wc}, including the Calculation conditions, but it includes thermal expansion modeling. Additionally, four cases similar to those in subsection \ref{wc} have been developed for this problem.
 
-Table \ref{tab432} compiles all 
+Table \ref{tab432a} presents the CBC solutions for all cases. As expected, the CBC from cell-based cases converges to that from the FET case as the size of the cells decreases. As in the previous assembly problem, the effect of thermal expansion in this problem counteracts the modeling with spatially continuous material properties. That is because, with around 800 ppm boron concentration, thermal expansion reduces the reactivity.
+
+\begin{table}
+    \centering
+    \caption{Calculation results for the whole-core problem using combined framework.}
+    \label{tab432a} 
+    \begin{tabular}{| c | c | c | c | }
+    \hline 
+       &   & \multicolumn{2}{c|}{CBC (ppm)}       \\
+    \cline{3-4}
+     Cases & \# of fuel pellet axial/radial discretization & No TE & TE \\
+     \hline
+     G1     & 25/1  & $859.6\pm0.2$ & $855.7\pm0.2$      \\ \hline
+     G1     & 50/2  & $863.0\pm0.2$ & $859.3\pm0.2$      \\ \hline
+     G2     & 60/5  & $864.0\pm0.2$ & $859.9\pm0.2$      \\ \hline
+     FET    & N/A   & $866.2\pm0.2$ & $861.2\pm0.2$      \\ \hline
+    \end{tabular}
+\end{table}
 
 \begin{table}
     \centering
@@ -41,11 +60,17 @@ Table \ref{tab432} compiles all
     \hline 
        &   & \multicolumn{2}{c|}{$k_{inf}$}       \\
     \cline{3-4}
-     Cases & \# of fuel pin radial/axial discretization & No TE & TE \\
+     Cases & \# of fuel pellet axial/radial discretization & No TE & TE \\
      \hline
-     G1     & 25/1  & $1.16400\pm0.00004$ & $1.16321\pm0.00004$      \\ \hline
-     G1     & 50/2  & $1.16443\pm0.00004$ & $1.16350\pm0.00004$      \\ \hline
-     G2     & 60/5  & $1.16449\pm0.00005$ & $1.16368\pm0.00005$      \\ \hline
-     FET    & N/A   & $1.16465\pm0.00004$ & $1.16378\pm0.00004$      \\ \hline
+     H1     & 25/1  & $1.09655\pm0.00002$ & $1.09789\pm0.00002$      \\ \hline
+     H1     & 50/2  & $1.09704\pm0.00002$ & $1.09826\pm0.00002$      \\ \hline
+     H2     & 60/5  & $1.09717\pm0.00002$ & $1.09839\pm0.00002$      \\ \hline
+     FET    & N/A   & $1.09743\pm0.00004$ & $1.09860\pm0.00004$      \\ \hline
     \end{tabular}
 \end{table}
+
+To more clearly observe the effects of thermal expansion, another whole-core problem is run boron concentration is set to zero. However, instead of estimating the critical boron concentration, this problem calculates the reactor eigenvalue. All other modeling parameters and cases are the same as those described in subsection \ref{wc}.
+
+Table \ref{tab432} compiles all the effective multiplication factors from all cases both with and without thermal expansion. For reactor problems with zero boron concentration, the thermal expansion modelling adds the reactivity by around 120 pcm as can be observed in the Table \ref{tab432}. Also, as in the previous problems, the eigenvalue from cell-based cases converges to that from the FET case as the cells' size smaller.
+
+All these results demonstrate that the incorporation of multi-physics simulations with spatially continuous material properties and thermal expansion into reactor modeling can significantly enhance simulation fidelity. Therefore, the framework has the potential to be incorporated into future Monte Carlo production codes to meet the growing demands for improved reactor safety.

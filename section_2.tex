@@ -32,7 +32,7 @@ Fortunately, the integrals required to obtain the expansion coefficients in Eq. 
 \end{equation}
 In Eq. \ref{eq5}, $N$ represents the total number of particles in each batch, $K_i$ is the total number of collisions for particle $i$, $w_{i,k}$ is the weight of particle $i$ at collision $k$, $\kappa\left({\vec{\xi}}_{i,k}\right)$ is the energy released per fission at the phase space point ${\vec{\xi}}_{i,k}$, and $\mathrm{\Sigma}_\mathrm{t}\left({\vec{\xi}}_{i,k}\right)$ is the total macroscopic cross section at the phase space point ${\vec{\xi}}_{i,k}$.
 
-While any polynomial basis can be used, a set of orthogonal polynomials is generally preferred. By choosing the weighting function $\rho\left(\vec{\xi}\right)$ as the zeroth order of an orthogonal polynomial set, which equals unity, Eq. \ref{eq4} and Eq. \ref{eq5} can be simplified.
+While any polynomial basis can be used, a set of orthogonal polynomials is generally preferred. Additionally, by choosing an orthogonal polynomial set whose weighting function $\rho\left(\vec{\xi}\right)$ equal to unity, Eq. \ref{eq4} and Eq. \ref{eq5} can be simplified.
 
 FET implementation often assumes that the solutions are separable. For instance, in cylindrical geometry, the solution is assumed to be separable as:
 \begin{equation}
@@ -50,7 +50,7 @@ The construction of Legendre polynomials can be done recursively as given by:
 \end{equation}
 with $P_0=1$ and $P_1=x$. Note that when constructing both Legendre and Zernike polynomials, the variable must be scaled into its domain. For example, the Legendre polynomials' variable $x$ must be scaled over the interval $[-1, 1]$. Therefore, if Legendre polynomials need to be calculated across the axial direction of an active reactor core, for instance, from 11.951 cm to 377.711 cm, the variable $x$ in the range $[11.951, 377.711]$ must be scaled to the range $[-1, 1]$.
 
-Zernike polynomials form an orthogonal set of polynomials defined on a unit disk with variable domain of $[0, 1]$. They have traditionally been widely applied in optics, particularly in wavefront analysis due to their ability to represent circularly symmetric functions efficiently. To provide a better illustration on the Zernike polynomials, the first four orders of Zernike polynomials are plotted in Figure \ref{fig_21}. Note that, in Figure \ref{fig_21}, the Zernike polynomials of order $Z_n^0$ have a uniform profile across the azimuthal direction.
+Zernike polynomials form an orthogonal set of polynomials defined on a unit disk with variable domain of $[0, 1]$. They have traditionally been widely applied in optics, particularly in wavefront analysis due to their ability to represent circularly symmetric functions efficiently \cite{wang80}. In nuclear reactor simulations, the Zernike polynomial was first adopted to map the power distribution from the SCALE/Denovo radiation transport code to the AMPFuel fuel performance code \cite{hamilton}. Subsequently, it was incorporated into the FET by Ellis \cite{ellis}. To provide a better illustration on the Zernike polynomials, the first four orders of Zernike polynomials are plotted in Figure \ref{fig_21}. Note that, in Figure \ref{fig_21}, the Zernike polynomials of order $Z_n^0$ have a uniform profile across the azimuthal direction.
 
 \begin{figure}
     \centering
@@ -118,27 +118,27 @@ One limitation of the FET method is that its polynomials are primarily effective
 \begin{figure}
     \centering
     \includegraphics[width=1.0\textwidth]{figs/axi_pow_comparison.pdf}
-    \caption[Comparisons of axial power from mesh tally and FET.]{Comparisons of axial power from mesh tally and FET, both with and without the use of piecewise expansions. Both FET cases uses 8\textsuperscript{th} order Legendre polynomials expansions.}
+    \caption[Comparisons of axial power from mesh tally and FET.]{Comparisons of axial power from mesh tally and FET, both with and without the use of piecewise expansions. Both FET cases uses $8^\text{th}$ order Legendre polynomials expansions.}
     \label{fig_21x}
 \end{figure}
 
-Figure \ref{fig_21x} shows the comparisons of axial power from mesh tally and FET, both with and without the use of piecewise expansions. The FET cases in the figure utilize 8\textsuperscript{th} order Legendre polynomial expansions. As demonstrated, the axial power depression due to the presence of spatial grids cannot be accurately modeled using a single expansion, and higher-order Legendre polynomials do not resolve the inaccuracies near power depression areas. As observed in Figure \ref{fig_21y}, even a 12\textsuperscript{th} order expansion does not accurately capture the power depressions in axial power. Conversely, with piecewise expansions, even a 6\textsuperscript{th} order expansion can accurately model these depressions as can be seen in the Figure \ref{fig_21z}.
+Figure \ref{fig_21x} shows the comparisons of axial power from mesh tally and FET, both with and without the use of piecewise expansions. The FET cases in the figure utilize $8^\text{th}$ order Legendre polynomial expansions. As demonstrated, the axial power depression due to the presence of spatial grids cannot be accurately modeled using a single expansion, and higher-order Legendre polynomials do not resolve the inaccuracies near power depression areas. As observed in Figure \ref{fig_21y}, even a $12^\text{th}$ order expansion does not accurately capture the power depressions in axial power. Conversely, with piecewise expansions, even a $6^\text{th}$ order expansion can accurately model these depressions as can be seen in the Figure \ref{fig_21z}.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.88\textwidth]{figs/no_piecewise.pdf}
-    \caption[Percent error in axial power from FET without the use of piecewise expansions.]{Percent error in axial power from FET without the use of piecewise expansions for 6\textsuperscript{th}, 8\textsuperscript{th}, 10\textsuperscript{th}, and 12\textsuperscript{th} order expansions.}
+    \caption[Percent error in axial power from FET without the use of piecewise expansions.]{Percent error in axial power from FET without the use of piecewise expansions for $6^\text{th}$, $8^\text{th}$, $10^\text{th}$, and $12^\text{th}$ order expansions.}
     \label{fig_21y}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.88\textwidth]{figs/piecewise.pdf}
-    \caption[Percent error in axial power from FET with the use of piecewise expansions.]{Percent error in axial power from FET with the use of piecewise expansions for 2\textsuperscript{nd}, 4\textsuperscript{th}, 6\textsuperscript{th}, and 8\textsuperscript{th} order expansions.}
+    \caption[Percent error in axial power from FET with the use of piecewise expansions.]{Percent error in axial power from FET with the use of piecewise expansions for $2^\text{nd}$, $4^\text{th}$, $6^\text{th}$, and $8^\text{th}$ order expansions.}
     \label{fig_21z}
 \end{figure}
 
-However, employing piecewise expansions comes with a cost. The use piecewise expansions require more number expansion coefficients that must be stored because each segmented expansion has its own set expansion coefficients. For instance, in the Watts Bar reactors which have seven spacer grids, the number of 8\textsuperscript{th} order Legendre expansion coefficients that must be stored with the use of piecewise expansion is 126 coefficients compared to only 9 coefficients if single expansion is used. Fortunately, as will be shown later, the overall memory savings from utilizing FET are substantial compared to conventional cell tallies in multi-physics simulations.
+However, employing piecewise expansions comes with a cost. The use piecewise expansions require more number expansion coefficients that must be stored because each segmented expansion has its own set expansion coefficients. For instance, in the Watts Bar reactors which have seven spacer grids, the number of $8^\text{th}$ order Legendre expansion coefficients that must be stored with the use of piecewise expansion is 126 coefficients compared to only 9 coefficients if single expansion is used. Fortunately, as will be shown later, the overall memory savings from utilizing FET are substantial compared to conventional cell tallies in multi-physics simulations.
 
 \subsection{Variance Estimation}\label{sec22a}
 

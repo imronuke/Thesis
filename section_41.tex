@@ -75,9 +75,9 @@ Table \ref{tab3} compares the CBC results from all cases, showing that the solut
     \caption{Calculation results for three-dimensional pin-cell problem.}
     \label{tab3} 
     % \begin{adjustbox}{width=0.6\textwidth} % Adjust your table to the text width
-    \begin{tabular}{| c | c | c | c | }
+    \begin{tabular}{| c | C{4cm} | C{3.5cm} | c | }
     \hline 
-     Cases & \# axial/radial discretization & Critical Boron Concentration (ppm) & Relative wall-clock time \\
+     Cases & \# of fuel pellet axial/radial discretization & Critical Boron Concentration (ppm) & Relative wall-clock time \\
      \hline
      B1     & 25/1  & $1507.5\pm0.3$ & 1.2      \\ \hline
      B2     & 100/5 & $1511.1\pm0.3$ & 4.5      \\ \hline
@@ -134,7 +134,7 @@ Each case simulated $3 \times 10^4$ particle histories per cycle, with a total o
     % \begin{adjustbox}{width=0.6\textwidth} % Adjust your table to the text width
     \begin{tabular}{| c | c | c | c | }
     \hline 
-     Cases & \# of fuel pin radial/axial discretization & $k_{inf}$ & Relative wall-clock time \\
+     Cases & \# of fuel pellet axial/radial discretization & $k_{inf}$ & Relative wall-clock time \\
      \hline
      C1     & 25/1  & $1.16400\pm0.00004$ & 1.6      \\ \hline
      C1     & 50/2  & $1.16443\pm0.00004$ & 2.3      \\ \hline
@@ -176,7 +176,7 @@ In contrast, the presence of control rods is very localized, located in a small 
     \hline 
            &        &  \multicolumn{2}{c|}{Pyrex} & \multicolumn{2}{c|}{Control Rods}  \\
     \cline{3-6}
-    Cases & \# of fuel pin radial/axial discretization & $k_{inf}$ & Relative wall-clock time & $k_{inf}$ & Relative wall-clock time \\
+    Cases & \# of fuel pellet axial/radial discretization & $k_{inf}$ & Relative wall-clock time & $k_{inf}$ & Relative wall-clock time \\
     \hline
     D1     & 25/1  & $0.95876\pm0.00004$ & 1.5  & $1.15972\pm0.00004$ & 0.8     \\ \hline
     D1     & 50/2  & $0.95909\pm0.00004$ & 2.1  & $1.16007\pm0.00004$ & 1.1     \\ \hline
@@ -228,11 +228,11 @@ In this whole-core problem, the random access memory (RAM) requirements were als
     % \begin{adjustbox}{width=\textwidth} % Adjust your table to the text width
         \begin{tabular}{| c | C{0.25\linewidth} | c | C{0.2\linewidth} | C{0.2\linewidth} | }
             \hline 
-            Cases & \# of fuel pin radial/axial discretization & CBC (ppm) & Relative wall-clock time & Relative memory usage \\
+            Cases & \# of fuel pellet axial/radial discretization & CBC (ppm) & Relative wall-clock time & Relative memory usage \\
             \hline
             E1     & 25/1  & $859.6\pm0.2$ & 1.2 & 1.1      \\ \hline
             E1     & 50/2  & $863.0\pm0.2$ & 1.8 & 2.4      \\ \hline
-            E2     & 60/5 & $864.0\pm0.2$ & 2.9 & 4.9      \\ \hline
+            E2     & 60/5  & $864.0\pm0.2$ & 2.9 & 4.9      \\ \hline
             FET    & N/A   & $866.2\pm0.2$ & 1.0 $^\text{(a)}$ & 1.0 $^\text{(b)}$      \\ \hline
         \end{tabular}
     % \end{adjustbox}
@@ -272,3 +272,30 @@ Figure \ref{fig_49} shows the assembly power map and its comparison between the 
     \caption[Three-dimensional view of radially pin-averaged coolant and  fuel temperatures]{Three-dimensional view of radially pin-averaged coolant temperature (a) and fuel temperature (b) from FET case}
     \label{fig_49}
 \end{figure}
+
+A set of FET cases utilizing various orders of Zernike and Legendre polynomials was conducted to assess the effects of polynomial order on accuracy, running time, and memory usage. The results for these cases are presented in Table \ref{tab34}. It should be noted that in Table \ref{tab34}, the Zernike and Legendre polynomials are of the same order for each case. Additionally, the running time and memory usage are calculated relative to the $8^\text{th}$ order case.
+
+\begin{table}
+    \centering
+    \caption{Calculation results for FET cases utilizing different orders of Zernike and Legendre polynomials.}
+    \label{tab34} 
+    % \begin{adjustbox}{width=\textwidth} % Adjust your table to the text width
+        \begin{tabular}{| c | c | C{0.2\linewidth} | C{0.2\linewidth} | }
+            \hline 
+            Zernike and Legendre order &  CBC (ppm) & Relative wall-clock time & Relative memory usage \\
+            \hline
+            $2^\text{nd}$   & $866.0\pm0.2$ & 0.90 & 0.70      \\ \hline
+            $4^\text{th}$   & $866.1\pm0.2$ & 0.93 & 0.80      \\ \hline
+            $6^\text{th}$   & $865.7\pm0.2$ & 0.97 & 0.90      \\ \hline
+            $8^\text{th}$   & $865.6\pm0.2$ & 1.00 $^\text{(a)}$ & 1.00 $^\text{(b)}$      \\ \hline
+            $10^\text{th}$  & $866.0\pm0.2$ & 1.03 & 1.10      \\ \hline
+        \end{tabular}
+    % \end{adjustbox}
+    \begin{flushleft}
+        \small
+        $^\text{(a)}$ The absolute wall-clock time for the $8^\text{th}$ order case is 14.5 hours with 70 MPI processes. \\
+        $^\text{(b)}$ The absolute memory usage for the $8^\text{th}$ order case is 153.1 GB per node, with each node running 35 MPI processes.
+    \end{flushleft}
+\end{table}
+
+As can be seen in Table \ref{tab34}, the solution accuracy for CBC is quite good even with the use of $2^\text{nd}$ order Zernike and Legendre polynomials. The results for these $2^\text{nd}$ order polynomials still fall within the statistical uncertainties for both CBC and power distribution, making it difficult to compare their accuracy. However, the use of low-order polynomials is generally not recommended for broader problems, as it may compromise calculation accuracy. Interesting observations can be made regarding how the polynomial order impacts running time and memory usage: an increase in polynomial order by two leads to a 3\% increase in running time. Similarly, an increase in polynomial order results in approximately a 10\% rise in memory usage. Thus, it is evident that the polynomial order significantly affects memory usage during MC multi-physics coupled simulations that utilize spatially continuous material properties.

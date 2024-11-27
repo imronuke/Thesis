@@ -44,9 +44,9 @@ While Ellis' work and the work presented in this thesis may appear similar, they
     \setlength{\leftmargini}{0.2cm}
     \caption{Key differences between this work and Ellis' work}
     \label{tab_1q} 
-    \begin{tabular}{| p{2.75cm} | m{2.75cm} | m{2.75cm} | m{6cm} | }
+    \begin{tabular}{| m{2.75cm} | m{2.75cm} | m{2.75cm} | m{6cm} | }
         \hline
-        Aspects & This work & Ellis' work & Remarks \\
+        \multicolumn{1}{|c|}{Aspects} & \multicolumn{1}{c|}{This work} & \multicolumn{1}{c|}{Ellis' work} & \multicolumn{1}{c|}{Remarks} \\
         \hhline{|=|=|=|=|}
         Particle-tracking method & Delta-tracking & CVMT & 
         \begin{itemize} 
@@ -61,7 +61,7 @@ While Ellis' work and the work presented in this thesis may appear similar, they
         \end{itemize} \\
         \hline
         Zernike polynomials calculations & Uses recursive formula & Uses conventional formula & Marks the first implementation in FET \\ \hline
-        Discretization & Material-wise & Needs discretization when there is spacer grid & This work does not additional discretization even when there is spacer grid. \\ \hline
+        Discretization & Material-wise & Needs discretization when there is spacer grid & This work does not employ additional discretization even when there is spacer grid. \\ \hline
         Scalability & Whole-core level & Assembly level &  \\ \hline
         Speedup (pin-cell problem) & 4.5 times faster & 1.7 times faster &  \\ \hline
     \end{tabular}
