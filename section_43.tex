@@ -37,7 +37,7 @@ Table \ref{tab432a} presents the CBC solutions for all cases. As expected, the C
 
 \begin{table}
     \centering
-    \caption{Calculation results for the whole-core problem using combined framework.}
+    \caption[CBC results for the whole-core problem using combined framework.]{Calculation results for the whole-core problem using combined framework. Critical boron search problem.}
     \label{tab432a} 
     \begin{tabular}{| c | c | c | c | }
     \hline 
@@ -54,7 +54,7 @@ Table \ref{tab432a} presents the CBC solutions for all cases. As expected, the C
 
 \begin{table}
     \centering
-    \caption{Calculation results for the whole-core problem using combined framework.}
+    \caption[Eigenvalue results for the whole-core problem using combined framework.]{Calculation results for the whole-core problem using combined framework. Eigenvalue problem with 0 ppm of boron concentration}
     \label{tab432} 
     \begin{tabular}{| c | c | c | c | }
     \hline 
@@ -69,8 +69,8 @@ Table \ref{tab432a} presents the CBC solutions for all cases. As expected, the C
     \end{tabular}
 \end{table}
 
-To more clearly observe the effects of thermal expansion, another whole-core problem is run boron concentration is set to zero. However, instead of estimating the critical boron concentration, this problem calculates the reactor eigenvalue. All other modeling parameters and cases are the same as those described in subsection \ref{wc}.
+To more clearly observe the effects of thermal expansion, another whole-core problem is run with boron concentration is set to zero. However, instead of estimating the critical boron concentration, this problem calculates the reactor eigenvalue. All other modeling parameters and cases are the same as those described in subsection \ref{wc}.
 
-Table \ref{tab432} compiles all the effective multiplication factors from all cases both with and without thermal expansion. For reactor problems with zero boron concentration, the thermal expansion modelling adds the reactivity by around 120 pcm as can be observed in the Table \ref{tab432}. Also, as in the previous problems, the eigenvalue from cell-based cases converges to that from the FET case as the cells' size smaller.
+Table \ref{tab432} compiles all infinite multiplication factors from all cases both with and without thermal expansion. For reactor problems with zero boron concentration, the thermal expansion modelling adds the reactivity by around 120 pcm as can be observed in the Table \ref{tab432}. Also, as in the previous problems, the eigenvalue from cell-based cases converges to that from the FET case as the cells' size smaller.
 
 All these results demonstrate that the incorporation of multi-physics simulations with spatially continuous material properties and thermal expansion into reactor modeling can significantly enhance simulation fidelity. Therefore, the framework has the potential to be incorporated into future Monte Carlo production codes to meet the growing demands for improved reactor safety.

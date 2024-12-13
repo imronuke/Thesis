@@ -112,6 +112,84 @@ Z_n^m(r,\theta) =
 \end{equation}
 However, for MC multi-physics applications in this study, the constructions the radial components for $m=0$ only are sufficient under the assumption that power variation within the fuel pellet occurs predominantly along the radial direction, with uniformity along the azimuthal direction.
 
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/bessel_exp.pdf}
+        \caption{Fourier-Bessel series $(J_0)_n(r)$}
+    \end{subfigure}
+    \hspace{1em}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/zernike_exp.pdf}
+        \caption{Radial parts of Zernike polynomials $R^0_n$}
+    \end{subfigure}
+    \caption{First few orders of Fourier-Bessel series and the radial parts of Zernike polynomials.}
+    \label{fig_x}
+\end{figure}
+
+There exist other orthogonal polynomials that can be used to approximate functions within a unit disk as alternatives to Zernike polynomials. One such example is the Fourier-Bessel series of zeroth order, whose first few modes are shown in Figure \ref{fig_x}, alongside the first few radial components of Zernike polynomials. Note that the Fourier-Bessel series of zeroth order are constructed by multiplying the spatial variable with $\alpha_n$, which are the positive roots of the zeroth-order Bessel function arranged in ascending order of mag­nitude, so that
+
+\begin{equation}
+    (J_0)_n(r) = J_0(\alpha_n r).
+\end{equation}
+Where $(J_0)_n$ denotes Fourier-Bessel series of zeroth order for $n$-th order, and $J_0$ denotes the zeroth order of Bessel function.
+
+However, Zernike polynomials have several advantages over the zeroth-order Fourier-Bessel series:
+\begin{enumerate}
+    \item Zernike expansions converge rapidly, meaning that functions can be approximated using fewer terms. For example, to approximate the function $f(r) = r^2 - 1$, a Fourier-Bessel expansion requires at least six terms to achieve accurate approximation, while Zernike expansions need only two terms to represent the function exactly, as illustrated in Figure \ref{fig_y}.
+    \item Zernike expansions are generally effective for approximating any functions but may not perform well with rapidly varying functions. In contrast, Fourier-Bessel expansions are only suitable for functions with zero boundary conditions. For instance, Fourier-Bessel expansions approximate the function $f(r) = r^2$ very poorly, even with 30 terms, as shown in Figure \ref{fig_z}. Meanwhile, Zernike expansions can approximate the function accurately.
+    \item Lastly, Zernike polynomials have a constant weight $\rho(\vec{\xi}) = 1$, which simplifies the computation of expansion coefficients, as shown in Eq. \ref{eq5}.
+\end{enumerate}
+
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/zernike_2.pdf}
+        \caption{Zernike expansion with 2 terms}
+    \end{subfigure}
+    \hspace{1em}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/bessel_exp_2.pdf}
+        \caption{Fourier-Bessel expansion with 2 terms}
+    \end{subfigure}
+    \hspace{1em}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/bessel_exp_4.pdf}
+        \caption{Fourier-Bessel expansion with 4 terms}
+    \end{subfigure}
+    \hspace{1em}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/bessel_exp_6.pdf}
+        \caption{Fourier-Bessel expansion with 6 terms}
+    \end{subfigure}
+    \caption{Zernike and Fourier-Bessel expansions to approximate function $f(r)=r^2-1$.}
+    \label{fig_y}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/bessel_exp_30.pdf}
+        \caption{Fourier-Bessel expansion with 30 terms}
+    \end{subfigure}
+    \hspace{1em}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/zernike_2b.pdf}
+        \caption{Zernike expansion with 2 terms}
+    \end{subfigure}
+    \caption{Zernike and Fourier-Bessel expansions to approximate function $f(r)=r^2$.}
+    \label{fig_z}
+\end{figure}
+
 \subsection{Overcoming Discontinuities} \label{sec22x}
 One limitation of the FET method is that its polynomials are primarily effective for approximating smooth distributions, with accuracy decreasing when applied to functions with discontinuities, such as those found in the axial power profile due to the presence of spacer grids. As proposed by Griesheimer \cite{gries}, this issue can be mitigated by using a piecewise expansion. In this approach, a tally region with known discontinuities is divided into two or more smaller regions, each expected to have a continuous solution, resulting in more accurate approximations.
 
@@ -174,6 +252,8 @@ Although the value of the majorant cross-section can be chosen arbitrarily, sett
     \label{eq10}
 \end{equation}
 This ensures that the rejection sampling remains efficient while maintaining the physical nature of the particle tracking.
+
+As previously mentioned, the delta-tracking region is defined within each fuel assembly, resulting in each assembly having a unique majorant cross section. Regions outside the active core still employ the conventional surface-tracking methodology. This approach is used because the geometry outside the active core is relatively straightforward, making the use of delta-tracking less beneficial.
 
 The delta-tracking has a drawback in geometries with significant material heterogeneity, where the total cross sections of different materials vary considerably \cite{leppanen_2010}. A common example is a LWR fuel assembly containing localized heavy absorbers, such as control rods or burnable absorber pins. In these cases, the absorber's cross section dominates the majorant at low energy, even though it occupies only a small portion of the total volume. This leads to a low probability of sampling a physical collision in regions outside the absorber. The impact of localized high absorbers, as commonly found in LWR problems, on the computational speed will be evaluated in subsection \ref{sec41}.
 
