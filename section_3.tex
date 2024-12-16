@@ -46,7 +46,7 @@ The thermal expansion coefficients of materials used in reactors are crucial for
 
 Note that these thermal expansion coefficients are similar to those described in Palmtag et al. \cite{palmtag}. Additionally, this study limits thermal expansion modeling to the fuel pellet, cladding, pin pitch, and assembly pitch. The dimensions of absorber materials, such as control rods and burnable absorbers, are assumed to remain constant.
 
-\subsection{Thermal-hydraulics Coupling} \label{sec33a}
+\subsection{Thermal-Hydraulics Coupling} \label{sec33a}
 
 MCS is a neutron/photon transport code that can be coupled with both TH1D \cite{ryu_2015} and CTF \cite{salko}. TH1D is a simple closed channel TH solver initially developed for nTracer TH solver. It solves mass and energy conservation equations in one-dimensional axial direction and does not consider phase change. While CTF is a more sophisticated TH solver that solves all the three conservation equations including the momentum equation, both for fluid and vapor phases, and in three dimensional directions. Also, CTF has a capability to model spacer grids, but the effects of spacer grids on the TH calculations were omitted in this study.
 
@@ -58,18 +58,18 @@ The fission power is tallied for each cell in the fuel pellets and then converte
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{figs/mcs_th1d.png}
-    \caption[Flow chart of MCS-TH1D coupling interface.]{Flow chart of MCS-TH1D coupling interface. Adapted from \cite{yu_2018}}
+    \caption[Flow chart of MCS-TH1D coupling interface.]{Flow chart of MCS-TH1D coupling interface. Adapted from \cite{yu_2018}.}
     \label{fig_30a}
 \end{figure}
 \begin{figure}
     \centering
     \includegraphics[width=0.9\textwidth]{figs/mcs_ctf.png}
-    \caption[Flow chart of MCS-CTF coupling interface.]{Flow chart of MCS-CTF coupling interface. Adapted from \cite{yu_2018}}
+    \caption[Flow chart of MCS-CTF coupling interface.]{Flow chart of MCS-CTF coupling interface. Adapted from \cite{yu_2018}.}
     \label{fig_30b}
 \end{figure}
 
 
-\subsection{On-the-fly Thermal Expansion} \label{sec33}
+\subsection{On-The-Fly Thermal Expansion} \label{sec33}
 
 Many MC codes, such as MCS, use Constructive Solid Geometry (CSG) to define the geometry of reactor problems. Performing non-uniform geometrical expansion using local temperatures in CSG presents a challenge because a single surface can be reused to form multiple cells within a universe, and a universe can be repeatedly used to define a lattice. Consequently, modifications to a particular surface, such as those resulting from thermal expansion, can affect all cells, universes, and lattices that utilize the modified surface. One possible solution to avoid this issue is by creating copies of surfaces and cells, so that every cell can be expanded according to their respective local temperatures. However, this approach is cumbersome for large reactor problems and would consume more memory.
 
@@ -82,13 +82,13 @@ In the implementation in MCS, the fuel pellet expanded both in radial and axial 
     \begin{subfigure}[b]{0.25\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/pellet_exp.pdf}
-        \caption{Fuel pellet}
+        \caption{Fuel pellet.}
     \end{subfigure}
     \hspace{6em}
     \begin{subfigure}[b]{0.25\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/clad_exp.pdf}
-        \caption{Cladding}
+        \caption{Cladding.}
     \end{subfigure}
     \caption{The radial expansion of fuel pellet and cladding.}
        \label{fig_31}

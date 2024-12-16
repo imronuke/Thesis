@@ -2,7 +2,7 @@
 
 Over the past five decades, advancements in modern computing have enabled direct whole-core Monte Carlo (MC) coupled multi-physics simulations for large-scale Light Water Reactors (LWRs). In this approach, the multi-physics coupling between MC codes and thermal-hydraulic (TH) solvers is accomplished at the pin-by-pin level. Numerous examples of these reactor multi-physics simulations can be found in the literature \cite{tung_2020,kelly_2017,ma_2019}, and they had demonstrated that such simulations are practically feasible for academic and research purposes. The results from such reactor multi-physics simulations have shown improved accuracy when compared to measured data and are often used as reference solutions for lower-order deterministic codes. However, according to Smith and Forget \cite{smith_2013}, there are still many important aspects of LWR simulations that must be incorporated to produce truly high-fidelity analysis tools.
 
-While the work of Smith and Forget highlights many aspects to improve the fidelity of reactor calculations, this thesis attempts to solve two issues. They are: first, inadequate spatial resolution, such as the improper modeling of radial temperature variations in fuel pellets, which is essential for accurately modeling spatial self-shielding effects \cite{smith_2013, nchoi_2020}. Second, thermal expansion of the reactor core materials, which is often neglected in typical direct whole-core MC coupled multi-physics simulations. The subsequent subsections, \ref{sec11} and \ref{sec12}, will discuss each of these aspects in detail. Additionally, a literature review for each aspect is described in those subsections.
+While the work of Smith and Forget highlights many aspects to improve the fidelity of reactor calculations, this thesis attempts to solve two issues. First, inadequate spatial resolution, such as the improper modeling of radial temperature variations in fuel pellets, which is essential for accurately modeling spatial self-shielding effects \cite{smith_2013, nchoi_2020}. Second, thermal expansion of the reactor core materials, which is often neglected in typical direct whole-core MC coupled multi-physics simulations. The subsequent subsections, \ref{sec11} and \ref{sec12}, will discuss each of these aspects in detail. Additionally, a literature review for each aspect is described in those subsections.
 
 \subsection{Spatial Resolution} \label{sec11}
 
@@ -17,14 +17,14 @@ Although high spatial resolution can be achieved by discretizing the problem dom
     \begin{subfigure}[b]{0.25\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/sec_1a.png}
-        \caption{Actual geometry}
+        \caption{Actual geometry.}
         \label{fig_1a}
     \end{subfigure}
     \hspace{6em}
     \begin{subfigure}[b]{0.25\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/sec_1b.png}
-        \caption{Discretized geometry}
+        \caption{Discretized geometry.}
         \label{fig_1b}
     \end{subfigure}
     \caption{Axial view of a typical Monte Carlo geometry model.}
@@ -42,7 +42,7 @@ While Ellis' work and the work presented in this thesis may appear similar, they
 \begin{table}
     \centering
     \setlength{\leftmargini}{0.2cm}
-    \caption{Key differences between this work and Ellis' work}
+    \caption{Key differences between this work and Ellis' work.}
     \label{tab_1q} 
     \begin{tabular}{| m{2.75cm} | m{2.75cm} | m{2.75cm} | m{6cm} | }
         \hline
@@ -76,7 +76,7 @@ Thermal expansion modeling has long been incorporated into the industry's best-p
 \begin{figure}
     \centering
     \includegraphics[width=0.65\textwidth]{figs/two_step.png}
-    \caption[The two-step methodology for reactor calculations.]{The two-step methodology for reactor calculations. Adapted from \cite{li_2023}}
+    \caption[The two-step methodology for reactor calculations.]{The two-step methodology for reactor calculations. Adapted from \cite{li_2023}.}
     \label{fig_1x}
 \end{figure}
 

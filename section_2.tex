@@ -55,7 +55,7 @@ Zernike polynomials form an orthogonal set of polynomials defined on a unit disk
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{figs/zernike.png}
-    \caption[Zernike polynomial orders zero through four]{Zernike polynomial orders zero through four. Adapted from \cite{ellis}}
+    \caption[Zernike polynomial orders zero through four]{Zernike polynomial orders zero through four. Adapted from \cite{ellis}.}
     \label{fig_21}
 \end{figure}
 
@@ -117,13 +117,13 @@ However, for MC multi-physics applications in this study, the constructions the 
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/bessel_exp.pdf}
-        \caption{Fourier-Bessel series $(J_0)_n(r)$}
+        \caption{Fourier-Bessel series $(J_0)_n(r)$.}
     \end{subfigure}
     \hspace{1em}
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/zernike_exp.pdf}
-        \caption{Radial parts of Zernike polynomials $R^0_n$}
+        \caption{Radial parts of Zernike polynomials $R^0_n$.}
     \end{subfigure}
     \caption{First few orders of Fourier-Bessel series and the radial parts of Zernike polynomials.}
     \label{fig_x}
@@ -149,25 +149,25 @@ However, Zernike polynomials have several advantages over the zeroth-order Fouri
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/zernike_2.pdf}
-        \caption{Zernike expansion with 2 terms}
+        \caption{Zernike expansion with 2 terms.}
     \end{subfigure}
     \hspace{1em}
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/bessel_exp_2.pdf}
-        \caption{Fourier-Bessel expansion with 2 terms}
+        \caption{Fourier-Bessel expansion with 2 terms.}
     \end{subfigure}
     \hspace{1em}
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/bessel_exp_4.pdf}
-        \caption{Fourier-Bessel expansion with 4 terms}
+        \caption{Fourier-Bessel expansion with 4 terms.}
     \end{subfigure}
     \hspace{1em}
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/bessel_exp_6.pdf}
-        \caption{Fourier-Bessel expansion with 6 terms}
+        \caption{Fourier-Bessel expansion with 6 terms.}
     \end{subfigure}
     \caption{Zernike and Fourier-Bessel expansions to approximate function $f(r)=r^2-1$.}
     \label{fig_y}
@@ -178,13 +178,13 @@ However, Zernike polynomials have several advantages over the zeroth-order Fouri
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/bessel_exp_30.pdf}
-        \caption{Fourier-Bessel expansion with 30 terms}
+        \caption{Fourier-Bessel expansion with 30 terms.}
     \end{subfigure}
     \hspace{1em}
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/zernike_2b.pdf}
-        \caption{Zernike expansion with 2 terms}
+        \caption{Zernike expansion with 2 terms.}
     \end{subfigure}
     \caption{Zernike and Fourier-Bessel expansions to approximate function $f(r)=r^2$.}
     \label{fig_z}
@@ -222,7 +222,7 @@ However, employing piecewise expansions comes with a cost. The use piecewise exp
 
 Variance estimation is an integral part in the MC simulations, as lower variance increases confidence in the results. In the implementation of FET in this study, although FET coefficients are tallied during particle tracking, their variances are not directly calculated. Instead, the variances of the reconstructed tallies are computed, as the primary goal of the calculations is not the coefficients themselves but the reconstructed tallies, such as power and reaction rates. The estimated variances for the reconstructed tallies from FET are calculated in a similar manner to traditionally tallied quantities in MC simulations.
 
-\subsection{Delta-tracking} \label{sec23}
+\subsection{Delta-Tracking} \label{sec23}
 Due to the continuous variation of material properties across the fuel pin, delta-tracking is employed as an alternative to conventional surface-tracking. Surface-tracking is not suitable in a continuous medium because the distance to collision is sampled using the following equation:
 \begin{equation}
     s = -\frac{\ln(\xi)}{\Sigma_{t}(E)},
@@ -257,7 +257,7 @@ As previously mentioned, the delta-tracking region is defined within each fuel a
 
 The delta-tracking has a drawback in geometries with significant material heterogeneity, where the total cross sections of different materials vary considerably \cite{leppanen_2010}. A common example is a LWR fuel assembly containing localized heavy absorbers, such as control rods or burnable absorber pins. In these cases, the absorber's cross section dominates the majorant at low energy, even though it occupies only a small portion of the total volume. This leads to a low probability of sampling a physical collision in regions outside the absorber. The impact of localized high absorbers, as commonly found in LWR problems, on the computational speed will be evaluated in subsection \ref{sec41}.
 
-\subsection{Majorant cross-section Computation} \label{sec24}
+\subsection{Majorant Cross-Section Computation} \label{sec24}
 
 One of the main challenges in the delta-tracking for spatially continuous material properties is specifying the majorant cross-section (XS). The continuous distributions of fuel temperature, coolant density, and boron nuclide density significantly influence the XS across the delta-tracking region. Since each nuclide has different energy grids, the majorant XS is stored energy-wise in uniform majorant energy bins (MEB). Each MEB contains one or more energy grids of the point-wise XS in the MC cross-section library.
 
@@ -268,7 +268,7 @@ Numerical experiments suggest that the ideal number of MEBs is 1,200 which distr
 \begin{figure}
     \centering
     \includegraphics[width=0.95\textwidth]{figs/maj.pdf}
-    \caption[Comparison of majorant microscopic XS of U-238]{Comparison of majorant microscopic XS of U-238 for temperature ranges 500 K - 1400 K and point-wise energy grid of U-238 at 700 K}
+    \caption[Comparison of majorant microscopic XS of U-238]{Comparison of majorant microscopic XS of U-238 for temperature ranges 500 K - 1400 K and point-wise energy grid of U-238 at 700 K.}
     \label{fig_2}
 \end{figure}
 \begin{figure}
