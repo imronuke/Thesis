@@ -3,11 +3,12 @@
 *.blg
 *.lof
 *.log
-main.pdf
 *.toc
 *.lot
 Exported Items.bib
 main.fdb_latexmk
 main.fls
 main.synctex.gz
+Dissertation_prof.pdf
+Dissertation_committee_stamp.pdf
 codes/
