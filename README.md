@@ -2,7 +2,7 @@
 
 My doctoral thesis I wrote at Ulsan National Institute of Science and Technology.
 
-***<p style="text-align:center;">Text with basic formatting applied</p>***
+***<p style="text-align:center;"> Enhanced Fidelity of Monte Carlo Coupled Multi-Physics Simulations for Light Water Reactors </p>***
 
 This study presents a framework to enhance the fidelity of typical Monte Carlo (MC) coupled multi-physics simulations for Light Water Reactors (LWRs) through two key improvements. First, the introduction of multi-physics simulations with spatially continuous material properties using the Functional Expansion Tally (FET) combined with delta-tracking. Second, the incorporation of on-the-fly thermal expansion of reactor core components during MC particle tracking. In direct multi-physics coupled MC simulations, the use of spatially continuous material properties is  particularly crucial to accurately modeling spatial self-shielding effects, which depend on smooth intra-fuel-pellet temperature distributions. The significant reduction in discretization also preserves the MC method's advantage in handling continuous geometry. Additionally, modeling thermal expansion is essential because the geometric data of reactor components is typically provided at room temperature, while reactors operate at much higher temperatures. Numerical experiments are conducted to assess the applicability and advantages of the proposed multi-physics framework across a range of reactor core problems, from two-dimensional pin-cell to whole-core reactor problems.
 
